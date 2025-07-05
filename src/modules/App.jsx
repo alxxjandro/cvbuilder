@@ -5,10 +5,10 @@ import "../styles/App.css";
 
 function App() {
   return (
-    <div>
+    <>
       <Sidebar />
-      {/* <CV /> */}
-    </div>
+      <CV />
+    </>
   );
 }
 
