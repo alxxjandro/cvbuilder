@@ -1,20 +1,20 @@
-*{
+* {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-#root{
+#root {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 650px 1fr;
 }
 
-.sidebar{
+.sidebar {
   border: solid 3px blue;
 }
 
-.CVcontainer{
+.CVcontainer {
   border: solid 3px green;
 }
 
@@ -24,6 +24,6 @@
   margin: 2rem auto;
   padding: 1rem;
   background-color: white;
-  border: 1px solid green;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  border: 1px solid #ccc;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }

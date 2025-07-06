@@ -1,10 +1,5 @@
-
-function Education(){
-  return(
-    <div>
-      EDUCATION
-    </div>
-  )
+function Education() {
+  return <div>EDUCATION</div>;
 }
 
 export default Education;
