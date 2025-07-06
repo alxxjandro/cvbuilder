@@ -6,18 +6,30 @@ import Education from "./sidebarSections/Education";
 
 function App() {
   const [view, setView] = useState(true);
+
+  //load up de page with some dummy data
   const [cvData, setCvData] = useState({
     profile: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      phoneNumber: "",
-      city: "",
-      linkedin: "",
-      github: "",
-      portfolio: "",
+      firstName: "Alonso",
+      lastName: "Alarcón",
+      email: "alejandro33p@icloud.com",
+      phoneNumber: "123-456-7890",
+      city: "Madrid, Spain",
+      linkedin: "Alonso Alarcon",
+      github: "alxxjandro",
+      portfolio: "alxxjandro.com",
     },
-    education: [],
+    education: [
+      {
+        "schoolName": "Random School",
+        "degreeName": "A pretty cool degree",
+        "degreeCity": "Italy",
+        "startDate": new Date().toISOString().split('T')[0],
+        "extraNotes": "I had a pretty good time!",
+        "endDate": new Date().toISOString().split('T')[0],
+        "id": 1,
+      },
+    ],
   });
 
   return (

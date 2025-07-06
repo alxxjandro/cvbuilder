@@ -2,8 +2,9 @@ import "../../styles/Profile.css";
 import { useEffect, useState } from "react";
 import { GoPlusCircle } from "react-icons/go";
 
-function Education({ data, addEducationEntry }) {
+function Education({ setData, data, addEducationEntry }) {
   const [form, setForm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     schoolName: "",
     degreeName: "",
@@ -36,7 +37,13 @@ function Education({ data, addEducationEntry }) {
   };
 
   const handleSubmit = () => {
-    addEducationEntry(formData);
+    if(isEditing){
+      setIsEditing(true);
+      addEducationEntry(formData, true);
+    } else{
+      addEducationEntry(formData);
+    }
+
     setForm(false);
     setFormData({
       schoolName: "",
@@ -47,7 +54,19 @@ function Education({ data, addEducationEntry }) {
       extraNotes: "",
       id: "",
     });
+    setIsEditing(false);
   };
+
+  const handleDelete = () => {
+    let filteredData = data.education.filter(entry =>
+      entry.id !== formData.id
+    )
+
+    setData(prev => ({
+    ...prev,
+    education: filteredData,
+  }));
+  }
 
   const handleNewForm = () => {
     setFormData({
@@ -62,6 +81,13 @@ function Education({ data, addEducationEntry }) {
     setForm(true);
   };
 
+  const editSchool = (schoolId) =>{
+    let match = data.education.find((entry) => entry.id === schoolId);
+    setFormData(match);
+    setIsEditing(true);
+    setForm(true);
+  }
+
   return (
     <div className="education">
       <div className="newField">
@@ -70,7 +96,10 @@ function Education({ data, addEducationEntry }) {
         </button>
 
         {data.education.map((e) => (
-          <h1 key={e.id}>{e.schoolName}</h1>
+          <div key={e.id}>
+            <h1>{e.schoolName}</h1>
+            <button id={e.id} onClick={() => editSchool(e.id)}>edit</button>
+          </div>
         ))}
 
         {form && (
@@ -130,6 +159,7 @@ function Education({ data, addEducationEntry }) {
             </div>
 
             <div className="formButtons">
+              <button onClick={handleDelete}>Delete</button>
               <button onClick={handleCancel}>Cancel</button>
               <button onClick={handleSubmit}>Submit</button>
             </div>

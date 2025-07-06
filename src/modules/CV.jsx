@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 function CV({ data, view }) {
-  console.log(data.education);
   return (
     <div className="CVcontainer">
       {view ? (
@@ -18,7 +17,7 @@ function CV({ data, view }) {
           </div>
           <div>
             {data.education.map((e) => (
-              <div key={e.id}>
+              <div id={e.id} key={e.id}>
                 <p>{e.schoolName}</p>
                 <p>{e.degreeName}</p>
                 <p>{e.degreeCity}</p>

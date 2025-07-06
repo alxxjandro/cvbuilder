@@ -29,10 +29,12 @@ function Sidebar({ data, setData, view, setView }) {
   };
 
   //for adding schools to the state
-  const addEducationEntry = (entry) => {
-    setData((prev) => ({
+  const addEducationEntry = (entry, isEdit = false) => {
+    setData(prev => ({
       ...prev,
-      education: [...(prev.education || []), entry],
+      education: isEdit
+        ? prev.education.map(e => e.id === entry.id ? entry : e) 
+        : [...prev.education, entry],
     }));
   };
 
