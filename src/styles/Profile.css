@@ -1,4 +1,5 @@
-div.profile {
+div.profile,
+div.education {
   padding: 2rem;
   max-width: 600px;
   margin: auto;

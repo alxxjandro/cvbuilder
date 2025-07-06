@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Profile from "./sidebarSections/Profile";
 import Education from "./sidebarSections/Education";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Sidebar({ data, setData, view, setView }) {
-
   const sections = [
-    { name: "Profile", component: Profile },
-    { name: "Education", component: Education },
+    { name: "profile", component: Profile },
+    { name: "education", component: Education },
   ];
   const [section, setSection] = useState(sections[0]);
   const SectionComponent = section.component;
@@ -16,24 +15,47 @@ function Sidebar({ data, setData, view, setView }) {
     return setView(!view);
   };
 
+  //used to update the entrys on profile
+  const handleSetter = (e) => {
+    const id = e.target.id;
+    const value = e.target.value;
+    setData((prev) => ({
+      ...prev,
+      [section.name]: {
+        ...prev[section.name],
+        [id]: value,
+      },
+    }));
+  };
+
+  //for adding schools to the state
+  const addEducationEntry = (entry) => {
+    setData((prev) => ({
+      ...prev,
+      education: [...(prev.education || []), entry],
+    }));
+  };
+
   return (
     <div className="sidebar">
-
       {sections.map((s, index) => (
         <button key={index} onClick={() => setSection(s)}>
           {s.name}
         </button>
       ))}
 
-      <button onClick={toggleView}>
-        {view ? <FaEyeSlash /> : <FaEye />}{" "}
-      </button>
+      <button onClick={toggleView}>{view ? <FaEyeSlash /> : <FaEye />} </button>
 
       <div className="section">
         {SectionComponent ? (
-          <SectionComponent data={data} setData={setData} />
+          <SectionComponent
+            data={data}
+            setData={setData}
+            handleSetter={handleSetter}
+            addEducationEntry={addEducationEntry}
+          />
         ) : (
-          "no content"
+          "An error coured, please try again"
         )}
       </div>
     </div>
