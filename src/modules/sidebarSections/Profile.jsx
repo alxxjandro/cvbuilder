@@ -37,24 +37,54 @@ function Profile({ data, setData }) {
 
       <div className="contactInfo">
         <label htmlFor="email">Email</label>
-        <input id="email" type="email" />
+        <input 
+          id="email" 
+          type="email" 
+          value={data.profile.email}
+          onChange={(e) => handleSetter(e)}
+        />
 
         <label htmlFor="phoneNumber">Phone</label>
-        <input id="phoneNumber" type="tel" />
+        <input 
+          id="phoneNumber" 
+          type="tel" 
+          value={data.profile.phoneNumber}
+          onChange={(e) => handleSetter(e)}
+        />
 
         <label htmlFor="city">City</label>
-        <input id="city" type="text" />
+        <input 
+          id="city" 
+          type="text" 
+          value={data.profile.city}
+          onChange={(e) => handleSetter(e)}
+        />
       </div>
 
       <div className="socials">
-        <label htmlFor="linkeding">LinkedIn Profile</label>
-        <input id="linkeding" type="text" />
+        <label htmlFor="linkedin">LinkedIn Profile</label>
+        <input 
+          id="linkedin" 
+          type="text" 
+          value={data.profile.linkedin}
+          onChange={(e) => handleSetter(e)}
+          />
 
         <label htmlFor="gitHub">GitHub/GitLab</label>
-        <input id="gitHub" type="text" />
+        <input 
+          id="github" 
+          type="text" 
+          value={data.profile.github}
+          onChange={(e) => handleSetter(e)}
+          />
 
         <label htmlFor="portfolio">Portfolio</label>
-        <input id="portfolio" type="text" />
+        <input 
+          id="portfolio" 
+          type="text" 
+          value={data.profile.portfolio}
+          onChange={(e) => handleSetter(e)}
+        />
       </div>
     </div>
   );
