@@ -1,8 +1,6 @@
 import { useState } from "react";
 import CV from "./CV";
 import Sidebar from "./Sidebar.JSX";
-import "../styles/App.css";
-import Education from "./sidebarSections/Education";
 
 function App() {
   const [view, setView] = useState(true);
@@ -30,6 +28,12 @@ function App() {
         "id": 1,
       },
     ],
+    techSkills: [
+      {
+        skillName: "JavaScript",
+
+      }
+    ]
   });
 
   return (

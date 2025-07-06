@@ -1,4 +1,3 @@
-import "../../styles/Profile.css";
 
 function Profile({ data, handleSetter }) {
   return (

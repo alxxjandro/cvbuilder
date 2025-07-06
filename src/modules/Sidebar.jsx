@@ -1,12 +1,20 @@
 import { useState } from "react";
 import Profile from "./sidebarSections/Profile";
 import Education from "./sidebarSections/Education";
+import TechSkills from "./sidebarSections/TechnicalSkills";
+import Experience from "./sidebarSections/Experience";
+import Projects from "./sidebarSections/Projects";
+import Softskills from "./sidebarSections/Softskills";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Sidebar({ data, setData, view, setView }) {
   const sections = [
-    { name: "profile", component: Profile },
-    { name: "education", component: Education },
+    { name: "Profile", component: Profile },
+    { name: "Education", component: Education },
+    { name: "Technical Skills", component: TechSkills},
+    { name: "Experience", component: Experience },
+    { name: "Projects", component: Projects},
+    { name: "Soft Skills", component: Softskills },
   ];
   const [section, setSection] = useState(sections[0]);
   const SectionComponent = section.component;

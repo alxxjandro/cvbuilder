@@ -1,36 +1,46 @@
-import { useState } from "react";
+import "../styles/App.css"
 
 function CV({ data, view }) {
+  if (!view) return null;
+
   return (
     <div className="CVcontainer">
-      {view ? (
-        <div className="CV">
-          <div className="profile">
-            <p>{data.profile.firstName}</p>
-            <p>{data.profile.lastName}</p>
-            <p>{data.profile.email}</p>
-            <p>{data.profile.phoneNumber}</p>
-            <p>{data.profile.city}</p>
-            <p>{data.profile.linkedin}</p>
-            <p>{data.profile.github}</p>
-            <p>{data.profile.portfolio}</p>
-          </div>
-          <div>
-            {data.education.map((e) => (
-              <div id={e.id} key={e.id}>
-                <p>{e.schoolName}</p>
-                <p>{e.degreeName}</p>
-                <p>{e.degreeCity}</p>
-                <p>{e.startDate}</p>
-                <p>{e.endDate}</p>
-                <p>{e.extraNotes}</p>
-              </div>
+      <div className="CV">
+        <section className="cv-section profile-section">
+          <h2>Profile</h2>
+          <p><strong>Name:</strong> {data.profile.firstName} {data.profile.lastName}</p>
+          <p><strong>Email:</strong> {data.profile.email}</p>
+          <p><strong>Phone:</strong> {data.profile.phoneNumber}</p>
+          <p><strong>City:</strong> {data.profile.city}</p>
+          <p><strong>LinkedIn:</strong> {data.profile.linkedin}</p>
+          <p><strong>GitHub:</strong> {data.profile.github}</p>
+          <p><strong>Portfolio:</strong> {data.profile.portfolio}</p>
+        </section>
+
+        <section className="cv-section education-section">
+          <h2>Education</h2>
+          {data.education.map((e) => (
+            <div className="education-entry" key={e.id}>
+              <p><strong>School:</strong> {e.schoolName}</p>
+              <p><strong>Degree:</strong> {e.degreeName}</p>
+              <p><strong>City:</strong> {e.degreeCity}</p>
+              <p><strong>Start:</strong> {e.startDate}</p>
+              <p><strong>End:</strong> {e.endDate}</p>
+              <p><strong>Notes:</strong> {e.extraNotes}</p>
+            </div>
+          ))}
+        </section>
+
+        {/* <section className="cv-section techskills-section">
+          <h2>Technical Skills</h2>
+          <ul>
+            {data.techSkills.map((skill, index) => (
+              <li key={index}>{skill.skillName}</li>
             ))}
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
+          </ul>
+        </section> */}
+
+      </div>
     </div>
   );
 }

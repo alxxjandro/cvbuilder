@@ -1,4 +1,3 @@
-import "../../styles/Profile.css";
 import { useEffect, useState } from "react";
 import { GoPlusCircle } from "react-icons/go";
 
