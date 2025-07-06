@@ -4,10 +4,21 @@
   margin: 0;
 }
 
-#root {
+.appRoot{
   min-height: 100vh;
   display: grid;
+}
+
+.previewMode{
   grid-template-columns: 650px 1fr;
+}
+
+.hiddenMode > div + div.CVcontainer{
+  display: none;
+}
+
+.hiddenMode{
+  grid-template-columns: 1fr;
 }
 
 .sidebar {

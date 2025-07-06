@@ -2,9 +2,6 @@ import { useEffect } from "react";
 import "../../styles/Profile.css";
 
 function Profile({ data, setData }) {
-  // useEffect(() =>{
-  //   console.log("data");
-  // },[])
 
   const handleSetter = (e) => {
     let id = e.target.id;

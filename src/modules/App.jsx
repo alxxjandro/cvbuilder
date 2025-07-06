@@ -5,6 +5,8 @@ import "../styles/App.css";
 import Education from "./sidebarSections/Education";
 
 function App() {
+
+  const [view, setView] = useState(true);
   const [cvData, setCvData] = useState({
     profile: {
       firstName: "",
@@ -20,10 +22,10 @@ function App() {
   });
 
   return (
-    <>
-      <Sidebar data={cvData} setData={setCvData} />
-      <CV data={cvData} />
-    </>
+    <div className={`appRoot ${view ? "previewMode" : "hiddenMode" }`}>
+      <Sidebar data={cvData} setData={setCvData} view={view} setView={setView} />
+      <CV data={cvData} view={view} />
+    </div>
   );
 }
 
