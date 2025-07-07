@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CV from "./CV";
-import Sidebar from "./Sidebar.JSX";
+import Sidebar from "./Sidebar"
 import "../styles/App.css";
 
 function App() {
