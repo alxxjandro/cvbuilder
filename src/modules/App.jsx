@@ -11,12 +11,12 @@ function App() {
     profile: {
       firstName: "Hey",
       lastName: "Stranger",
-      email: "alejandro33p@icloud.com",
+      email: "dummyMail@notreal.com",
       phoneNumber: "123-456-7890",
       city: "Madrid, Spain",
-      linkedin: "Alonso Alarcon",
-      github: "alxxjandro",
-      portfolio: "alxxjandro.com",
+      linkedin: "linkedin.com/in/heyStranger",
+      github: "github.com/heyStranger",
+      portfolio: "heyStranger.com",
     },
     education: [
       {
@@ -81,7 +81,7 @@ function App() {
           "Deployed on Vercel with custom domain",
           "Features dynamic theming and responsive design",
         ],
-        link: "https://alxxjandro.com/portfolio",
+        link: "https://www.heyStranger.com/portfolio",
         date: new Date().toISOString().split("T")[0],
       },
       {
@@ -91,7 +91,7 @@ function App() {
           "Used useEffect and useContext for state and API management",
           "Clean mobile-first UI built with Tailwind CSS",
         ],
-        link: "https://github.com/alxxjandro/weather-app",
+        link: "https://www.github.com/heyStranger/weather-app",
         date: new Date().toISOString().split("T")[0],
       },
     ],
