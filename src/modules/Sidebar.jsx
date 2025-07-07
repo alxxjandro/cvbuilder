@@ -6,7 +6,7 @@ import Experience from "./sidebarSections/Experience";
 import Projects from "./sidebarSections/Projects";
 import Softskills from "./sidebarSections/Softskills";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { IoPerson,IoSchool } from "react-icons/io5";
+import { IoPerson, IoSchool } from "react-icons/io5";
 import { FaCode } from "react-icons/fa6";
 import { MdWork } from "react-icons/md";
 import { FaFolder } from "react-icons/fa";
@@ -17,9 +17,9 @@ function Sidebar({ data, setData, view, setView }) {
   const sections = [
     { name: "Profile", component: Profile, icon: IoPerson },
     { name: "Education", component: Education, icon: IoSchool },
-    { name: "Technical Skills", component: TechSkills, icon: FaCode},
-    { name: "Experience", component: Experience, icon: MdWork},
-    { name: "Projects", component: Projects, icon: FaFolder},
+    { name: "Technical Skills", component: TechSkills, icon: FaCode },
+    { name: "Experience", component: Experience, icon: MdWork },
+    { name: "Projects", component: Projects, icon: FaFolder },
     { name: "Soft Skills", component: Softskills, icon: HiChatAlt2 },
   ];
   const [section, setSection] = useState(sections[0]);
@@ -60,7 +60,7 @@ function Sidebar({ data, setData, view, setView }) {
           >
             <div className="buttonInfo">
               {s.name}
-              { s.icon && <s.icon /> }
+              {s.icon && <s.icon />}
             </div>
           </button>
         ))}

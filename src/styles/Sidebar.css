@@ -52,14 +52,15 @@ button,
 input[type="text"],
 input[type="email"],
 input[type="tel"],
-input[type="date"] {
+input[type="date"],
+input {
   font-family: inherit;
   font-size: 1rem;
   padding: 0.5rem;
   border-radius: 6px;
   border: 1px solid #ccc;
   margin-top: 0.25rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.9rem;
 }
 
 button {
@@ -116,7 +117,7 @@ button:disabled {
 .education .newField > div:not(.Schoolform),
 .profile {
   border: 1px solid #ddd;
-  padding: 2.5rem .75rem;
+  padding: 2.5rem 0.75rem;
   margin-top: 0.5rem;
   border-radius: 8px;
   background-color: #ffffff;
@@ -125,8 +126,32 @@ button:disabled {
   align-items: center;
 }
 
-.profile > div{
+.education-entry {
+  border: 1px solid #ddd;
+  padding: 2.5rem 0.75rem;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.education-entry > .Schoolform {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile > div {
   min-width: 80%;
+}
+
+.education {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .education h1 {
@@ -177,9 +202,25 @@ input::placeholder {
   color: #888;
 }
 
-.buttonInfo{
+.buttonInfo {
   display: flex;
   justify-content: center;
   align-items: center;
+  align-self: center;
+  max-width: 200px;
   gap: 10px;
+}
+
+.formButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.otherBtns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#editEducation {
+  width: 100px;
 }
