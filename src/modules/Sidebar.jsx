@@ -6,34 +6,39 @@ import Experience from "./sidebarSections/Experience";
 import Projects from "./sidebarSections/Projects";
 import Softskills from "./sidebarSections/Softskills";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { IoPerson,IoSchool } from "react-icons/io5";
+import { FaCode } from "react-icons/fa6";
+import { MdWork } from "react-icons/md";
+import { FaFolder } from "react-icons/fa";
+import { HiChatAlt2 } from "react-icons/hi";
 import "../styles/Sidebar.css";
 
 function Sidebar({ data, setData, view, setView }) {
   const sections = [
-    { name: "Profile", component: Profile },
-    { name: "Education", component: Education },
-    { name: "Technical Skills", component: TechSkills },
-    { name: "Experience", component: Experience },
-    { name: "Projects", component: Projects },
-    { name: "Soft Skills", component: Softskills },
+    { name: "Profile", component: Profile, icon: IoPerson },
+    { name: "Education", component: Education, icon: IoSchool },
+    { name: "Technical Skills", component: TechSkills, icon: FaCode},
+    { name: "Experience", component: Experience, icon: MdWork},
+    { name: "Projects", component: Projects, icon: FaFolder},
+    { name: "Soft Skills", component: Softskills, icon: HiChatAlt2 },
   ];
   const [section, setSection] = useState(sections[0]);
   const SectionComponent = section.component;
 
   const toggleView = () => setView(!view);
 
-const handleSetter = (e) => {
-  const id = e.target.id;
-  const value = e.target.value;
+  const handleSetter = (e) => {
+    const id = e.target.id;
+    const value = e.target.value;
 
-  setData((prev) => ({
-    ...prev,
-    profile: {
-      ...prev.profile,
-      [id]: value,
-    },
-  }));
-};
+    setData((prev) => ({
+      ...prev,
+      profile: {
+        ...prev.profile,
+        [id]: value,
+      },
+    }));
+  };
 
   const addEducationEntry = (entry, isEdit = false) => {
     setData((prev) => ({
@@ -53,7 +58,10 @@ const handleSetter = (e) => {
             onClick={() => setSection(s)}
             className={section.name === s.name ? "active" : ""}
           >
-            {s.name}
+            <div className="buttonInfo">
+              {s.name}
+              { s.icon && <s.icon /> }
+            </div>
           </button>
         ))}
         <button onClick={toggleView}>

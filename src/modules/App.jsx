@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CV from "./CV";
 import Sidebar from "./Sidebar.JSX";
-import "../styles/App.css"
+import "../styles/App.css";
 
 function App() {
   const [view, setView] = useState(true);
