@@ -1,10 +1,5 @@
-
-function Experience(){
-  return(
-    <div>
-      EXPERIENCE
-    </div>
-  )
+function Experience() {
+  return <div>EXPERIENCE</div>;
 }
 
 export default Experience;

@@ -36,10 +36,10 @@ function Education({ setData, data, addEducationEntry }) {
   };
 
   const handleSubmit = () => {
-    if(isEditing){
+    if (isEditing) {
       setIsEditing(true);
       addEducationEntry(formData, true);
-    } else{
+    } else {
       addEducationEntry(formData);
     }
 
@@ -57,18 +57,18 @@ function Education({ setData, data, addEducationEntry }) {
   };
 
   const handleDelete = () => {
-    let filteredData = data.education.filter(entry =>
-      entry.id !== formData.id
-    )
+    let filteredData = data.education.filter(
+      (entry) => entry.id !== formData.id,
+    );
 
-    setData(prev => ({
-    ...prev,
-    education: filteredData,
-  }));
+    setData((prev) => ({
+      ...prev,
+      education: filteredData,
+    }));
 
-  setIsEditing(false)
-  setForm(false);
-  }
+    setIsEditing(false);
+    setForm(false);
+  };
 
   const handleNewForm = () => {
     setFormData({
@@ -83,12 +83,12 @@ function Education({ setData, data, addEducationEntry }) {
     setForm(true);
   };
 
-  const editSchool = (schoolId) =>{
+  const editSchool = (schoolId) => {
     let match = data.education.find((entry) => entry.id === schoolId);
     setFormData(match);
     setIsEditing(true);
     setForm(true);
-  }
+  };
 
   return (
     <div className="education">
@@ -100,7 +100,9 @@ function Education({ setData, data, addEducationEntry }) {
         {data.education.map((e) => (
           <div key={e.id}>
             <h1>{e.schoolName}</h1>
-            <button id={e.id} onClick={() => editSchool(e.id)}>edit</button>
+            <button id={e.id} onClick={() => editSchool(e.id)}>
+              edit
+            </button>
           </div>
         ))}
 

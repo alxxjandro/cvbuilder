@@ -22,47 +22,55 @@ function App() {
         schoolName: "Random School",
         degreeName: "A pretty cool degree",
         degreeCity: "Italy",
-        startDate: new Date().toISOString().split('T')[0],
+        startDate: new Date().toISOString().split("T")[0],
         extraNotes: "I had a pretty good time!",
-        endDate: new Date().toISOString().split('T')[0],
+        endDate: new Date().toISOString().split("T")[0],
         id: 1,
       },
     ],
     techSkills: [
       {
         groupName: "Programing Languages",
-        groupValues: ["Javascript","C++","Python","MySQL"]
+        groupValues: ["Javascript", "C++", "Python", "MySQL"],
+        id: 1,
       },
       {
         groupName: "Operating Systems",
-        groupValues: ["Linux","MacOS","Windows"]
+        groupValues: ["Linux", "MacOS", "Windows"],
+        id: 2,
       },
       {
         groupName: "Other Software",
-        groupValues: ["Figma","Adobe Suite","Microsoft Suite","Davinci Resolve"]
-      }
+        groupValues: [
+          "Figma",
+          "Adobe Suite",
+          "Microsoft Suite",
+          "Davinci Resolve",
+        ],
+        id: 3,
+      },
     ],
     experience: [
       {
         jobTitle: "Front-end Developer Intern",
         companyName: "Spotify",
-        fromDate: new Date().toISOString().split('T')[0],
-        toDate: new Date().toISOString().split('T')[0],
+        fromDate: new Date().toISOString().split("T")[0],
+        toDate: new Date().toISOString().split("T")[0],
         jobDescription: [
           "Proposed and develope new UI's for the platform",
-          "Lead a team of 4 people during 3 months"
-        ]
+          "Lead a team of 4 people during 3 months",
+        ],
       },
       {
         jobTitle: "Full-stack Junior Developer",
         companyName: "Google",
-        fromDate: new Date().toISOString().split('T')[0],
+        fromDate: new Date().toISOString().split("T")[0],
         toDate: "Present",
         jobDescription: [
           "Handle complex query's and optimized the search engine",
-          "Updated youtube's UI for mobile devices"
-        ]
-      }
+          "Updated youtube's UI for mobile devices",
+        ],
+      },
     ],
     projects: [
       {
@@ -70,21 +78,21 @@ function App() {
         description: [
           "Built with React and Vite",
           "Deployed on Vercel with custom domain",
-          "Features dynamic theming and responsive design"
+          "Features dynamic theming and responsive design",
         ],
         link: "https://alxxjandro.com/portfolio",
-        date: new Date().toISOString().split('T')[0]
+        date: new Date().toISOString().split("T")[0],
       },
       {
         projectName: "Weather App",
         description: [
           "Fetched real-time weather data using OpenWeatherMap API",
           "Used useEffect and useContext for state and API management",
-          "Clean mobile-first UI built with Tailwind CSS"
+          "Clean mobile-first UI built with Tailwind CSS",
         ],
         link: "https://github.com/alxxjandro/weather-app",
-        date: new Date().toISOString().split('T')[0]
-      }
+        date: new Date().toISOString().split("T")[0],
+      },
     ],
     softSkills: [
       { skill: "Teamwork" },
@@ -92,7 +100,7 @@ function App() {
       { skill: "Problem-solving" },
       { skill: "Time management" },
       { skill: "Adaptability" },
-    ]
+    ],
   });
 
   return (

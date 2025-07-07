@@ -1,4 +1,3 @@
-
 function Profile({ data, handleSetter }) {
   return (
     <div className="profile">
