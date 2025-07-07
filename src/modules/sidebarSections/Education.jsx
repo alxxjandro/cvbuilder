@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GoPlusCircle } from "react-icons/go";
 
 function Education({ setData, data, addEducationEntry }) {
@@ -65,6 +65,9 @@ function Education({ setData, data, addEducationEntry }) {
     ...prev,
     education: filteredData,
   }));
+
+  setIsEditing(false)
+  setForm(false);
   }
 
   const handleNewForm = () => {
