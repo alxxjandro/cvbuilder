@@ -40,8 +40,6 @@ function CV({ data, view }) {
         Download PDF
       </button>
       <div className="CV">
-
-        
         {/* Header */}
         <section className="cv-header">
           <h1>

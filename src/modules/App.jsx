@@ -9,8 +9,8 @@ function App() {
   //load up de page with some dummy data
   const [cvData, setCvData] = useState({
     profile: {
-      firstName: "Alonso",
-      lastName: "Alarcón",
+      firstName: "Hey",
+      lastName: "Stranger",
       email: "alejandro33p@icloud.com",
       phoneNumber: "123-456-7890",
       city: "Madrid, Spain",

@@ -1,7 +1,7 @@
 :root {
   --page-bg: #e9ecf1;
   --cv-bg: #fff;
-  --cv-shadow: 0 4px 32px rgba(0,0,0,0.10);
+  --cv-shadow: 0 4px 32px rgba(0, 0, 0, 0.1);
   --cv-border: #e0e4ea;
   --cv-title: #222;
   --cv-section-title: black;
@@ -12,7 +12,7 @@
 
 body {
   background: var(--page-bg);
-  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  font-family: "Segoe UI", "Roboto", Arial, sans-serif;
   margin: 0;
   min-height: 100vh;
 }
@@ -28,8 +28,8 @@ body {
 
 /* CV content */
 .CV {
-width: 700px;
-height: 990px; /* Aproximadamente */
+  width: 700px;
+  height: 990px; /* Aproximadamente */
   background: var(--cv-bg);
   box-shadow: var(--cv-shadow);
   border: 1px solid var(--cv-border);
@@ -147,15 +147,15 @@ height: 990px; /* Aproximadamente */
   .sidebar {
     display: none !important;
   }
-  
+
   .appRoot {
     display: block !important;
   }
-  
+
   .CVcontainer {
     padding: 0 !important;
   }
-  
+
   .CV {
     width: 100% !important;
     min-height: auto !important;
@@ -168,19 +168,142 @@ height: 990px; /* Aproximadamente */
     overflow: visible !important;
     page-break-inside: auto !important;
   }
-  
+
   .cv-section {
     page-break-inside: avoid !important;
     margin-bottom: 1rem !important;
   }
-  
+
   .download-btn {
     display: none !important;
   }
-  
+
   body {
     background: white !important;
     margin: 0 !important;
     padding: 0 !important;
+  }
+}
+
+/* Tablet styles */
+@media (max-width: 768px) {
+  .CVcontainer {
+    padding: 0.5rem;
+  }
+
+  .CV {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    min-height: auto;
+    padding: 1rem;
+    padding-top: 3rem;
+    margin: 0 auto;
+  }
+
+  .cv-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .cv-contact {
+    font-size: 0.8rem;
+    gap: 0.2rem;
+  }
+
+  .cv-section h2 {
+    font-size: 0.95rem;
+  }
+
+  .cv-entry > p {
+    font-size: 0.8rem;
+  }
+
+  .cv-subtext {
+    font-size: 0.75rem;
+  }
+
+  .cv-entry li {
+    font-size: 0.75rem;
+  }
+
+  .download-btn {
+    position: fixed;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+    z-index: 1000;
+  }
+}
+
+/* Phone styles */
+@media (max-width: 480px) {
+  .CVcontainer {
+    padding: 0.25rem;
+  }
+
+  .CV {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 4px;
+  }
+
+  .cv-header {
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.6rem;
+  }
+
+  .cv-header h1 {
+    font-size: 1.1rem;
+    margin: 0 0 0.3rem 0;
+  }
+
+  .cv-contact {
+    font-size: 0.75rem;
+    flex-direction: column;
+    gap: 0.1rem;
+    align-items: center;
+  }
+
+  .cv-section {
+    margin-bottom: 0.75rem;
+  }
+
+  .cv-section h2 {
+    font-size: 0.9rem;
+    margin: 0 0 0.3rem 0;
+  }
+
+  .cv-entry {
+    margin-bottom: 0.6rem;
+  }
+
+  .cv-entry > p {
+    font-size: 0.75rem;
+    line-height: 1.3;
+    margin: 0 0 0.2rem 0;
+  }
+
+  .cv-subtext {
+    font-size: 0.7rem;
+  }
+
+  .cv-entry ul {
+    margin: 0.1rem 0 0.4rem 0.8rem;
+  }
+
+  .cv-entry li {
+    font-size: 0.7rem;
+    line-height: 1.3;
+    margin: 0 0 0.15rem 0;
+  }
+
+  .download-btn {
+    position: fixed;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    z-index: 1000;
   }
 }

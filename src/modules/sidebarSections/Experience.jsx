@@ -105,7 +105,7 @@ function Experience({ setData, data }) {
               {expandedEntries.has(i) ? "−" : "+"}
             </button>
           </div>
-          
+
           {expandedEntries.has(i) && (
             <div className="entry-content">
               <label>
@@ -113,7 +113,9 @@ function Experience({ setData, data }) {
                 <input
                   type="text"
                   value={exp.jobTitle}
-                  onChange={(e) => handleFieldChange(i, "jobTitle", e.target.value)}
+                  onChange={(e) =>
+                    handleFieldChange(i, "jobTitle", e.target.value)
+                  }
                 />
               </label>
               <label>
@@ -131,7 +133,9 @@ function Experience({ setData, data }) {
                 <input
                   type="date"
                   value={exp.fromDate}
-                  onChange={(e) => handleFieldChange(i, "fromDate", e.target.value)}
+                  onChange={(e) =>
+                    handleFieldChange(i, "fromDate", e.target.value)
+                  }
                 />
               </label>
               <label>
@@ -139,7 +143,9 @@ function Experience({ setData, data }) {
                 <input
                   type="text"
                   value={exp.toDate}
-                  onChange={(e) => handleFieldChange(i, "toDate", e.target.value)}
+                  onChange={(e) =>
+                    handleFieldChange(i, "toDate", e.target.value)
+                  }
                   placeholder="To date or 'Present'"
                 />
               </label>
@@ -151,7 +157,9 @@ function Experience({ setData, data }) {
                       <input
                         type="text"
                         value={desc}
-                        onChange={(e) => handleJobDescChange(i, j, e.target.value)}
+                        onChange={(e) =>
+                          handleJobDescChange(i, j, e.target.value)
+                        }
                       />
                       <button
                         type="button"
@@ -171,8 +179,12 @@ function Experience({ setData, data }) {
           )}
         </div>
       ))}
-      
-      <button type="button" onClick={handleAddExperience} className="add-section-btn">
+
+      <button
+        type="button"
+        onClick={handleAddExperience}
+        className="add-section-btn"
+      >
         Add Experience
       </button>
     </div>

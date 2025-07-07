@@ -96,28 +96,33 @@ function Projects({ setData, data }) {
               {expandedProjects.has(i) ? "−" : "+"}
             </button>
           </div>
-          
+
           {expandedProjects.has(i) && (
             <div className="entry-content">
-              <label>Project Name
+              <label>
+                Project Name
                 <input
                   type="text"
                   value={proj.projectName}
-                  onChange={(e) => handleFieldChange(i, 'projectName', e.target.value)}
+                  onChange={(e) =>
+                    handleFieldChange(i, "projectName", e.target.value)
+                  }
                 />
               </label>
-              <label>Link
+              <label>
+                Link
                 <input
                   type="text"
                   value={proj.link}
-                  onChange={(e) => handleFieldChange(i, 'link', e.target.value)}
+                  onChange={(e) => handleFieldChange(i, "link", e.target.value)}
                 />
               </label>
-              <label>Date
+              <label>
+                Date
                 <input
                   type="date"
                   value={proj.date}
-                  onChange={(e) => handleFieldChange(i, 'date', e.target.value)}
+                  onChange={(e) => handleFieldChange(i, "date", e.target.value)}
                 />
               </label>
               <div>
@@ -130,7 +135,12 @@ function Projects({ setData, data }) {
                         value={desc}
                         onChange={(e) => handleDescChange(i, j, e.target.value)}
                       />
-                      <button type="button" onClick={() => handleDeleteDesc(i, j)}>X</button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteDesc(i, j)}
+                      >
+                        X
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -143,8 +153,12 @@ function Projects({ setData, data }) {
           )}
         </div>
       ))}
-      
-      <button type="button" onClick={handleAddProject} className="add-section-btn">
+
+      <button
+        type="button"
+        onClick={handleAddProject}
+        className="add-section-btn"
+      >
         Add Project
       </button>
     </div>

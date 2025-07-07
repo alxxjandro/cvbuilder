@@ -87,10 +87,12 @@ function TechSkills({ setData, data }) {
               {expandedGroups.has(entry.id) ? "−" : "+"}
             </button>
           </div>
-          
+
           {expandedGroups.has(entry.id) && (
             <div className="group-content">
-              <label htmlFor={`skillSetName-${entry.id}`}>Skill Group Name</label>
+              <label htmlFor={`skillSetName-${entry.id}`}>
+                Skill Group Name
+              </label>
               <input
                 id={`skillSetName-${entry.id}`}
                 value={entry.groupName}
@@ -106,13 +108,15 @@ function TechSkills({ setData, data }) {
                       type="button"
                       onClick={() => handleDeleteSkill(entry.id, skillIndex)}
                     >
-                      <FaTrash/>
+                      <FaTrash />
                     </button>
                   </li>
                 ))}
               </ul>
 
-              <AddSkillInput onAdd={(skill) => handleAddSkill(entry.id, skill)} />
+              <AddSkillInput
+                onAdd={(skill) => handleAddSkill(entry.id, skill)}
+              />
 
               <button
                 type="button"
@@ -124,7 +128,7 @@ function TechSkills({ setData, data }) {
           )}
         </div>
       ))}
-      
+
       <button type="button" onClick={handleAddGroup} className="buttonInfo">
         <GoPlusCircle /> Add Skill Group
       </button>
