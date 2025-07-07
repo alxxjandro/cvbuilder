@@ -2,26 +2,26 @@ import { useState } from "react";
 
 function Softskills({ setData, data }) {
   function handleSkillChange(index, value) {
-    setData(prev => ({
+    setData((prev) => ({
       ...prev,
       softSkills: prev.softSkills.map((s, i) =>
-        i === index ? { skill: value } : s
-      )
+        i === index ? { skill: value } : s,
+      ),
     }));
   }
 
   function handleDeleteSkill(index) {
-    setData(prev => ({
+    setData((prev) => ({
       ...prev,
-      softSkills: prev.softSkills.filter((_, i) => i !== index)
+      softSkills: prev.softSkills.filter((_, i) => i !== index),
     }));
   }
 
   function handleAddSkill(value) {
     if (!value) return;
-    setData(prev => ({
+    setData((prev) => ({
       ...prev,
-      softSkills: [...prev.softSkills, { skill: value }]
+      softSkills: [...prev.softSkills, { skill: value }],
     }));
   }
 
@@ -33,9 +33,11 @@ function Softskills({ setData, data }) {
             <input
               type="text"
               value={s.skill}
-              onChange={e => handleSkillChange(i, e.target.value)}
+              onChange={(e) => handleSkillChange(i, e.target.value)}
             />
-            <button type="button" onClick={() => handleDeleteSkill(i)}>X</button>
+            <button type="button" onClick={() => handleDeleteSkill(i)}>
+              X
+            </button>
           </li>
         ))}
       </ul>
@@ -52,8 +54,8 @@ function AddSkillInput({ onAdd }) {
         type="text"
         value={input}
         placeholder="Add soft skill"
-        onChange={e => setInput(e.target.value)}
-        onKeyDown={e => {
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
           if (e.key === "Enter" && input.trim()) {
             onAdd(input.trim());
             setInput("");

@@ -1,25 +1,42 @@
+/* Reset general */
 *,
-#root {
+*::before,
+*::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-/* This container holds everything */
-div.appRoot {
+body {
+  font-family: "Segoe UI", "Roboto", Arial, sans-serif;
+  background-color: #f1f3f6;
+  color: #222;
+  line-height: 1.5;
   min-height: 100vh;
+}
+
+/* Root container */
+#root {
+  min-height: 100vh;
+}
+
+/* Grid layout */
+.appRoot {
   display: grid;
-  grid-template-columns: 600px 1fr;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .appRoot.hiddenMode {
   grid-template-columns: 1fr;
 }
 
+/* Sidebar */
 .sidebar {
-  border: solid 3px red;
-}
-
-.CVcontainer {
-  border: solid 3px blue;
+  background-color: #ffffff;
+  border-right: 1px solid #d8dee9;
+  padding: 2rem 1.5rem;
+  overflow-y: auto;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.03);
 }

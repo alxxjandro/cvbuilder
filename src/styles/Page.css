@@ -1,0 +1,90 @@
+:root {
+  --cv-bg: #ffffff;
+  --cv-text: #000000;
+  --cv-subtext: #555555;
+  --cv-border: #dddddd;
+  --cv-font: "Georgia", "Times New Roman", serif;
+}
+
+.CV {
+  width: 21cm;
+  min-height: 29.7cm;
+  background-color: var(--cv-bg);
+  color: var(--cv-text);
+  font-family: var(--cv-font);
+  font-size: 11pt;
+  line-height: 1.6;
+  box-sizing: border-box;
+  padding: 2cm;
+  margin: 2rem auto;
+  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.cv-header {
+  text-align: center;
+  margin-bottom: 0.8rem;
+}
+
+.cv-header h1 {
+  font-size: 20pt;
+  font-weight: bold;
+  margin-bottom: -1rem;
+}
+
+.cv-contact {
+  font-size: 11pt;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+/* Section */
+.cv-section {
+  margin-bottom: 1rem;
+}
+
+.cv-section h2 {
+  font-size: 13pt;
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid var(--cv-border);
+  padding-bottom: 0.2rem;
+}
+
+/* Entries */
+.cv-entry {
+}
+
+.cv-entry > p {
+  margin: 0.2rem 0;
+}
+
+.cv-subtext {
+  font-size: 10pt;
+  color: var(--cv-subtext);
+  margin: 0.2rem 0;
+}
+
+/* Lists for job/project bullet points */
+.cv-entry ul {
+  padding-left: 1.2rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.6rem;
+}
+
+.cv-entry li {
+  font-size: 10.5pt;
+  margin-bottom: 0.2rem;
+}
+
+/* Links */
+.cv-entry a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cv-entry a:hover {
+  text-decoration: underline;
+}
