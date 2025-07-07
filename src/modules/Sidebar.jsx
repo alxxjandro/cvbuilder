@@ -6,6 +6,7 @@ import Experience from "./sidebarSections/Experience";
 import Projects from "./sidebarSections/Projects";
 import Softskills from "./sidebarSections/Softskills";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import "../styles/Sidebar.css";
 
 function Sidebar({ data, setData, view, setView }) {
   const sections = [
@@ -19,24 +20,21 @@ function Sidebar({ data, setData, view, setView }) {
   const [section, setSection] = useState(sections[0]);
   const SectionComponent = section.component;
 
-  const toggleView = () => {
-    return setView(!view);
-  };
+  const toggleView = () => setView(!view);
 
-  //used to update the entrys on profile
-  const handleSetter = (e) => {
-    const id = e.target.id;
-    const value = e.target.value;
-    setData((prev) => ({
-      ...prev,
-      [section.name]: {
-        ...prev[section.name],
-        [id]: value,
-      },
-    }));
-  };
+const handleSetter = (e) => {
+  const id = e.target.id;
+  const value = e.target.value;
 
-  //for adding schools to the state
+  setData((prev) => ({
+    ...prev,
+    profile: {
+      ...prev.profile,
+      [id]: value,
+    },
+  }));
+};
+
   const addEducationEntry = (entry, isEdit = false) => {
     setData((prev) => ({
       ...prev,
@@ -48,13 +46,20 @@ function Sidebar({ data, setData, view, setView }) {
 
   return (
     <div className="sidebar">
-      {sections.map((s, index) => (
-        <button key={index} onClick={() => setSection(s)}>
-          {s.name}
+      <div className="sidebarButtons">
+        {sections.map((s, index) => (
+          <button
+            key={index}
+            onClick={() => setSection(s)}
+            className={section.name === s.name ? "active" : ""}
+          >
+            {s.name}
+          </button>
+        ))}
+        <button onClick={toggleView}>
+          {view ? <FaEyeSlash /> : <FaEye />}
         </button>
-      ))}
-
-      <button onClick={toggleView}>{view ? <FaEyeSlash /> : <FaEye />} </button>
+      </div>
 
       <div className="section">
         {SectionComponent ? (
@@ -65,7 +70,7 @@ function Sidebar({ data, setData, view, setView }) {
             addEducationEntry={addEducationEntry}
           />
         ) : (
-          "An error coured, please try again"
+          "An error occurred, please try again"
         )}
       </div>
     </div>

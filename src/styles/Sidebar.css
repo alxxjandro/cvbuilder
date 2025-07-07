@@ -1,135 +1,170 @@
-:root {
-  --sidebar-bg: #f7f9fb;
-  --sidebar-section-bg: #fff;
-  --sidebar-border: #e0e4ea;
-  --sidebar-text: #222;
-  --sidebar-label: #555;
-  --sidebar-input-bg: #f2f4f8;
-  --sidebar-input-border: #cfd8dc;
-  --sidebar-button-bg: #e3f0ff;
-  --sidebar-button-hover: #b3d8ff;
-  --sidebar-button-text: #1565c0;
-}
+/* === Sidebar.css === */
 
 .sidebar {
-  background: var(--sidebar-bg);
-  padding: 2rem 1rem;
-  min-width: 320px;
-  border-right: 1px solid var(--sidebar-border);
-  height: 100vh;
-  box-sizing: border-box;
+  background-color: #ffffff;
+  border-right: 1px solid #d8dee9;
+  padding: 1rem 1rem 0 1rem;
   overflow-y: auto;
-}
-
-.form-section {
-  background: var(--sidebar-section-bg);
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
-  padding: 1.5rem 1rem;
-  margin-bottom: 2rem;
-}
-
-.form-section label {
-  display: block;
-  color: var(--sidebar-label);
-  font-size: 0.95rem;
-  margin-bottom: 0.25rem;
-  margin-top: 1rem;
-}
-
-.form-section input[type="text"],
-.form-section input[type="date"] {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  border: 1px solid var(--sidebar-input-border);
-  border-radius: 4px;
-  background: var(--sidebar-input-bg);
-  color: var(--sidebar-text);
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
-.form-section ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0.5rem 0 1rem 0;
-}
-
-.form-section li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.form-section button {
-  background: var(--sidebar-button-bg);
-  color: var(--sidebar-button-text);
-  border: none;
-  border-radius: 4px;
-  padding: 0.3rem 0.8rem;
-  margin-left: 0.5rem;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: background 0.2s;
-}
-
-.form-section button:hover {
-  background: var(--sidebar-button-hover);
-}
-
-.form-section strong {
-  color: var(--sidebar-label);
-  font-size: 1.05rem;
-}
-
-.sidebar {
-  background: var(--sidebar-bg);
-  padding: 2rem 1.2rem;
-  min-width: 320px;
-  height: 100vh;
-  border-right: 1px solid var(--sidebar-border);
-  box-sizing: border-box;
-  overflow-y: auto;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
 }
 
-.form-section {
-  background: var(--sidebar-section-bg);
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
-  padding: 1.5rem 1.2rem;
-  transition: box-shadow 0.3s;
+.sidebarButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.form-section:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
-}
-
-.form-section label {
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-
-.form-section input[type="text"],
-.form-section input[type="date"],
-.form-section textarea {
-  outline: none;
-  border: 1px solid var(--sidebar-input-border);
+.sidebarButtons button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
   border-radius: 6px;
-  padding: 0.5rem 0.75rem;
-  background: var(--sidebar-input-bg);
-  transition: border 0.2s ease;
-}
-
-.form-section input:focus,
-.form-section textarea:focus {
-  border-color: var(--sidebar-button-text);
-}
-
-.form-section button {
+  background-color: #f1f3f6;
+  color: #222;
+  cursor: pointer;
   font-weight: 500;
-  padding: 0.4rem 1rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.sidebarButtons button:hover {
+  background-color: #e2e6ea;
+}
+
+.sidebarButtons button.active {
+  background-color: #e8f0fe;
+  border: 1px solid #4285f4;
+  color: #4285f4;
+  font-weight: bold;
+}
+
+.section {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+
+/* === Normalize buttons and inputs === */
+button,
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"] {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+}
+
+button {
+  background-color: #f1f3f6;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #e2e6ea;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* === Form-section shared === */
+.form-section {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* === Specific components === */
+
+.profile{
+  padding: 1rem;
+}
+
+.profile label,
+.education label,
+.project-entry label,
+.experience-entry label,
+.tech-skill-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.profile input,
+.education input,
+.project-entry input,
+.experience-entry input,
+.tech-skill-group input {
+  width: 80%;
+}
+
+/* Education preview */
+.education .newField > div:not(.Schoolform) {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.education h1 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* TechSkills toggle */
+.tech-skill-group {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.tech-skill-group ul {
+  padding-left: 1rem;
+  list-style: disc;
+}
+
+/* Experience entry */
+.experience-entry {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Project entry */
+.project-entry {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.project-entry ul,
+.experience-entry ul {
+  padding-left: 1rem;
+  list-style: disc;
+}
+
+/* Utility */
+input::placeholder {
+  color: #888;
 }
