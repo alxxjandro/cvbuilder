@@ -1,86 +1,186 @@
 :root {
-  --cv-bg: #ffffff;
-  --cv-text: #000000;
+  --page-bg: #e9ecf1;
+  --cv-bg: #fff;
+  --cv-shadow: 0 4px 32px rgba(0,0,0,0.10);
+  --cv-border: #e0e4ea;
+  --cv-title: #222;
+  --cv-section-title: black;
+  --cv-text: #333;
   --cv-subtext: #555555;
-  --cv-border: #dddddd;
   --cv-font: "Georgia", "Times New Roman", serif;
 }
 
-.CV {
-  width: 21cm;
-  min-height: 29.7cm;
-  background-color: var(--cv-bg);
-  color: var(--cv-text);
-  font-family: var(--cv-font);
-  font-size: 11pt;
-  line-height: 1.6;
-  box-sizing: border-box;
-  padding: 2cm;
-  margin: 2rem auto;
-  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.1);
+body {
+  background: var(--page-bg);
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
 }
 
-/* Header */
+/* Main CV container */
+.CVcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+/* CV content */
+.CV {
+width: 700px;
+height: 990px; /* Aproximadamente */
+  background: var(--cv-bg);
+  box-shadow: var(--cv-shadow);
+  border: 1px solid var(--cv-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  position: relative;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+}
+
+/* Download/Print button */
+.download-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #f1f3f6;
+  color: #222;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+  font-family: inherit;
+}
+
+.download-btn:hover {
+  background-color: #e2e6ea;
+}
+
+/* Header section */
 .cv-header {
   text-align: center;
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--cv-border);
+  padding-bottom: 0.8rem;
 }
 
 .cv-header h1 {
-  font-size: 20pt;
+  color: var(--cv-title);
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: -1rem;
+  margin: 0 0 0.4rem 0;
 }
 
 .cv-contact {
-  font-size: 11pt;
+  color: var(--cv-text);
+  font-size: 0.85rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.3rem;
+  margin: 0;
 }
 
-/* Section */
+/* Section styling */
 .cv-section {
   margin-bottom: 1rem;
 }
 
 .cv-section h2 {
-  font-size: 13pt;
-  font-weight: bold;
-  margin-bottom: 0.4rem;
+  color: var(--cv-section-title);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.4rem 0;
   border-bottom: 1px solid var(--cv-border);
   padding-bottom: 0.2rem;
+  letter-spacing: 0.3px;
+}
+
+/* Entry styling */
+.cv-entry {
+  margin-bottom: 0.8rem;
 }
 
 .cv-entry > p {
-  margin: 0.2rem 0;
+  color: var(--cv-text);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0 0 0.3rem 0;
 }
 
 .cv-subtext {
-  font-size: 10pt;
   color: var(--cv-subtext);
+  font-size: 0.8rem;
   margin: 0.2rem 0;
 }
 
 /* Lists for job/project bullet points */
 .cv-entry ul {
-  padding-left: 1.2rem;
-  margin-top: 0.3rem;
-  margin-bottom: 0.6rem;
+  margin: 0.1rem 0 0.5rem 1rem;
+  padding: 0;
 }
 
 .cv-entry li {
-  font-size: 10.5pt;
-  margin-bottom: 0.2rem;
+  color: var(--cv-text);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin: 0 0 0.2rem 0;
 }
 
 /* Links */
 .cv-entry a {
-  color: inherit;
+  color: var(--cv-section-title);
   text-decoration: none;
 }
 
 .cv-entry a:hover {
   text-decoration: underline;
+}
+
+/* Print styles */
+@media print {
+  .sidebar {
+    display: none !important;
+  }
+  
+  .appRoot {
+    display: block !important;
+  }
+  
+  .CVcontainer {
+    padding: 0 !important;
+  }
+  
+  .CV {
+    width: 100% !important;
+    min-height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 1.5rem !important;
+    overflow: visible !important;
+    page-break-inside: auto !important;
+  }
+  
+  .cv-section {
+    page-break-inside: avoid !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  .download-btn {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
 }

@@ -1,6 +1,20 @@
+import { GoPlusCircle } from "react-icons/go";
 import { useState } from "react";
+import { FaTrash } from "react-icons/fa";
 
 function TechSkills({ setData, data }) {
+  const [expandedGroups, setExpandedGroups] = useState(new Set());
+
+  const toggleGroup = (groupId) => {
+    const newExpanded = new Set(expandedGroups);
+    if (newExpanded.has(groupId)) {
+      newExpanded.delete(groupId);
+    } else {
+      newExpanded.add(groupId);
+    }
+    setExpandedGroups(newExpanded);
+  };
+
   const handleGroupNameChange = (e, groupId) => {
     const value = e.target.value;
     setData((prev) => ({
@@ -50,60 +64,70 @@ function TechSkills({ setData, data }) {
 
   // Add a new skill group
   function handleAddGroup() {
+    const newGroup = {
+      id: Date.now() + Math.random(),
+      groupName: "",
+      groupValues: [],
+    };
     setData((prev) => ({
       ...prev,
-      techSkills: [
-        ...prev.techSkills,
-        {
-          id: Date.now() + Math.random(),
-          groupName: "",
-          groupValues: [],
-        },
-      ],
+      techSkills: [...prev.techSkills, newGroup],
     }));
+    // Auto-expand the new group
+    setExpandedGroups((prev) => new Set([...prev, newGroup.id]));
   }
 
   return (
     <div className="form-section">
-      <button
-        type="button"
-        onClick={handleAddGroup}
-        style={{ marginBottom: "1em" }}
-      >
-        Add Skill Group
-      </button>
       {data.techSkills.map((entry, groupIndex) => (
-        <section key={entry.id} className="tech-skill-group">
-          <label htmlFor={`skillSetName-${entry.id}`}>Skill Group</label>
-          <input
-            id={`skillSetName-${entry.id}`}
-            value={entry.groupName}
-            onChange={(e) => handleGroupNameChange(e, entry.id)}
-            type="text"
-          />
+        <div key={entry.id} className="tech-skill-group">
+          <div className="group-header" onClick={() => toggleGroup(entry.id)}>
+            <h3>{entry.groupName || "Untitled Skill Group"}</h3>
+            <button type="button" className="toggle-btn">
+              {expandedGroups.has(entry.id) ? "−" : "+"}
+            </button>
+          </div>
+          
+          {expandedGroups.has(entry.id) && (
+            <div className="group-content">
+              <label htmlFor={`skillSetName-${entry.id}`}>Skill Group Name</label>
+              <input
+                id={`skillSetName-${entry.id}`}
+                value={entry.groupName}
+                onChange={(e) => handleGroupNameChange(e, entry.id)}
+                type="text"
+              />
 
-          <ul>
-            {entry.groupValues.map((skill, skillIndex) => (
-              <li key={skillIndex}>
-                {skill}
-                <button
-                  type="button"
-                  onClick={() => handleDeleteSkill(entry.id, skillIndex)}
-                >
-                  X
-                </button>
-              </li>
-            ))}
-          </ul>
+              <ul>
+                {entry.groupValues.map((skill, skillIndex) => (
+                  <li key={skillIndex}>
+                    {skill}
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteSkill(entry.id, skillIndex)}
+                    >
+                      <FaTrash/>
+                    </button>
+                  </li>
+                ))}
+              </ul>
 
-          {/* Add Skill Input */}
-          <AddSkillInput onAdd={(skill) => handleAddSkill(entry.id, skill)} />
+              <AddSkillInput onAdd={(skill) => handleAddSkill(entry.id, skill)} />
 
-          <button type="button" onClick={(e) => handleGroupDelete(entry.id)}>
-            Delete group
-          </button>
-        </section>
+              <button
+                type="button"
+                onClick={(e) => handleGroupDelete(entry.id)}
+              >
+                Delete group
+              </button>
+            </div>
+          )}
+        </div>
       ))}
+      
+      <button type="button" onClick={handleAddGroup} className="buttonInfo">
+        <GoPlusCircle /> Add Skill Group
+      </button>
     </div>
   );
 }
@@ -112,7 +136,7 @@ function TechSkills({ setData, data }) {
 function AddSkillInput({ onAdd }) {
   const [input, setInput] = useState("");
   return (
-    <div style={{ marginTop: "0.5em", marginBottom: "0.5em" }}>
+    <div>
       <input
         type="text"
         value={input}

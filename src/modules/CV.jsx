@@ -30,9 +30,18 @@ function formatDate(dateStr) {
 function CV({ data, view }) {
   if (!view) return null;
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <div className="CVcontainer">
+      <button className="download-btn" onClick={handlePrint}>
+        Download PDF
+      </button>
       <div className="CV">
+
+        
         {/* Header */}
         <section className="cv-header">
           <h1>
@@ -130,7 +139,7 @@ function CV({ data, view }) {
         </section>
 
         {/* Soft Skills */}
-        <section className="cv-section">
+        <section className="cv-section cv-entry">
           <h2>Soft Skills</h2>
           <p>{data.softSkills.map((s) => s.skill).join(", ")}</p>
         </section>

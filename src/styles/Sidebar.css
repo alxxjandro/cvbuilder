@@ -8,6 +8,8 @@
   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
 .sidebarButtons {
@@ -45,6 +47,7 @@
   flex-grow: 1;
   overflow-y: auto;
   padding-right: 0.5rem;
+  padding-bottom: 2rem; /* Add bottom padding for scrolling */
 }
 
 /* === Normalize buttons and inputs === */
@@ -81,12 +84,47 @@ button:disabled {
 
 /* === Form-section shared === */
 .form-section {
-  background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
   padding: 1rem;
   border-radius: 10px;
   margin-bottom: 1rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  max-height: calc(100vh - 200px);
+}
+
+/* === Toggleable section styling === */
+.entry-header,
+.group-header {
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+  padding: 0.75rem;
+
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.entry-header:hover,
+.group-header:hover {
+  background-color: #e9ecef;
+}
+
+.entry-header h3,
+.group-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.entry-content,
+.group-content {
+  padding: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
 }
 
 /* === Specific components === */
@@ -99,7 +137,8 @@ button:disabled {
 .education label,
 .project-entry label,
 .experience-entry label,
-.tech-skill-group label {
+.tech-skill-group label,
+.form-section label {
   display: block;
   font-weight: bold;
   margin-bottom: 0.25rem;
@@ -109,7 +148,8 @@ button:disabled {
 .education input,
 .project-entry input,
 .experience-entry input,
-.tech-skill-group input {
+.tech-skill-group input,
+.form-section input {
   width: 100%;
 }
 
@@ -161,8 +201,6 @@ button:disabled {
 
 /* TechSkills toggle */
 .tech-skill-group {
-  margin-bottom: 1rem;
-  padding: 0.75rem;
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -197,6 +235,101 @@ button:disabled {
   list-style: disc;
 }
 
+/* === Additional section styling for consistency === */
+
+/* Technical Skills section */
+.form-section .tech-skill-group {
+  margin-bottom: 1rem;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.form-section .tech-skill-group ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.form-section .tech-skill-group li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color: #f9fafb;
+  border-radius: 4px;
+}
+
+/* Experience section */
+.form-section .experience-entry {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-section .experience-entry ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.form-section .experience-entry li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Projects section */
+.form-section .project-entry {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-section .project-entry ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.form-section .project-entry li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Soft Skills section */
+.form-section ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.form-section li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Add input styling for all sections */
+.form-section input[type="text"],
+.form-section input[type="date"] {
+  flex: 1;
+  margin-right: 0.5rem;
+}
+
+/* Button styling for delete buttons */
+.form-section button {
+  padding: 0.3rem 0.8rem;
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+}
+
 /* Utility */
 input::placeholder {
   color: #888;
@@ -223,4 +356,11 @@ input::placeholder {
 
 #editEducation {
   width: 100px;
+}
+
+
+.toggle-btn{
+  margin-top: 10px;
+  border: none;
+  background-color: transparent;
 }
