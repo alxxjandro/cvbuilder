@@ -8,11 +8,15 @@
  */
 
 /**
- * Contact and header information shown at the top of the CV.
+ * Contact and header information shown at the top of the CV. `headline` is the
+ * short role line under the name (for example "Backend Engineer") and `summary`
+ * is the introductory paragraph rendered below the masthead.
  */
 export interface Profile {
   firstName: string;
   lastName: string;
+  headline: string;
+  summary: string;
   email: string;
   phoneNumber: string;
   city: string;
@@ -51,6 +55,7 @@ export interface Experience {
   id: string;
   jobTitle: string;
   companyName: string;
+  location: string;
   fromDate: string;
   toDate: string;
   current: boolean;

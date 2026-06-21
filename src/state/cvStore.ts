@@ -6,7 +6,7 @@ import type {
   Profile,
   SectionEntryMap,
 } from "../types/cv";
-import { createEntry, SAMPLE_CV } from "../model/cv";
+import { createEmptyCV, createEntry } from "../model/cv";
 
 /**
  * Maps each bullet section to the entry field that stores its string lines.
@@ -124,11 +124,12 @@ export interface CVStore {
 }
 
 /**
- * Zustand store that owns the CV document. The app seeds it with
- * {@link SAMPLE_CV}; tests replace the document through {@link CVStore.load}.
+ * Zustand store that owns the working CV document. It starts empty; the editor
+ * loads the document for the current route and mirrors edits back to the
+ * persisted library, while tests replace it through {@link CVStore.load}.
  */
 export const useCVStore = create<CVStore>((set) => ({
-  data: SAMPLE_CV,
+  data: createEmptyCV(),
 
   updateProfileField: (field, value) =>
     set((state) => ({

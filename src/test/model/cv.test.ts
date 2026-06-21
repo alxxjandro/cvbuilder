@@ -5,6 +5,8 @@ describe("createEmptyCV", () => {
   it("starts with empty profile fields", () => {
     const cv = createEmptyCV();
     expect(cv.profile.firstName).toBe("");
+    expect(cv.profile.headline).toBe("");
+    expect(cv.profile.summary).toBe("");
     expect(cv.profile.email).toBe("");
     expect(cv.profile.portfolio).toBe("");
   });
@@ -37,6 +39,7 @@ describe("createEntry", () => {
   it("defaults an experience entry to not current with empty bullets", () => {
     const exp = createEntry("experience");
     expect(exp.current).toBe(false);
+    expect(exp.location).toBe("");
     expect(exp.bullets).toEqual([]);
   });
 

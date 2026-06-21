@@ -1,0 +1,367 @@
+.landing {
+  --pad: clamp(24px, 5vw, 64px);
+  min-height: 100vh;
+  background: var(--paper);
+}
+
+.landing-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 var(--pad);
+  border-bottom: 1px solid var(--line);
+}
+
+.landing-logo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.landing-signin {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.landing-signin:hover {
+  color: var(--accent);
+}
+
+.landing-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 700px;
+}
+
+.landing-hero-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  padding: 96px var(--pad) 80px;
+}
+
+.landing-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+
+.landing-title {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 7vw, 62px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+  margin: 0;
+}
+
+.landing-sub {
+  font-size: 19px;
+  color: var(--ink-mid);
+  line-height: 1.55;
+  margin: 26px 0 38px;
+  max-width: 460px;
+}
+
+.landing-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  margin-top: 72px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+}
+
+.landing-proof-sep {
+  color: #d8d2c6;
+}
+
+.landing-hero-visual {
+  position: absolute;
+  top: 80px;
+  right: -60px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.landing-hero-frame {
+  position: relative;
+  height: 620px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 40px 80px -30px rgba(22, 21, 15, 0.4);
+  transform-origin: top center;
+}
+
+.landing-hero-frame-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 794px;
+  transform-origin: top left;
+}
+
+.landing-band {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding: 80px var(--pad);
+  background: var(--ink);
+  color: #f3f0e9;
+}
+
+.landing-band-copy {
+  flex: 1;
+  max-width: 520px;
+}
+
+.landing-band-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #8aa0ff;
+  margin-bottom: 20px;
+}
+
+.landing-band-title {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  margin: 0;
+}
+
+.landing-band-body {
+  font-size: 16px;
+  line-height: 1.65;
+  color: #b8b3a7;
+  margin: 22px 0 30px;
+  max-width: 440px;
+}
+
+.landing-band-tags {
+  display: flex;
+  gap: 22px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: #a8a294;
+}
+
+.landing-band-sep {
+  color: #57544b;
+}
+
+.landing-band-cards {
+  position: relative;
+  flex: none;
+  width: 392px;
+  height: 300px;
+}
+
+.landing-card {
+  position: absolute;
+  width: 148px;
+  height: 196px;
+  padding: 13px 13px 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 26px 50px -22px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.landing-card.is-left {
+  left: 14px;
+  top: 46px;
+  transform: rotate(-9deg);
+}
+
+.landing-card.is-mid {
+  left: 108px;
+  top: 18px;
+  transform: rotate(3deg);
+}
+
+.landing-card.is-right {
+  left: 210px;
+  top: 52px;
+  transform: rotate(-3deg);
+}
+
+.landing-card-badge {
+  position: absolute;
+  top: 10px;
+  right: -1px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  padding: 3px 7px;
+  border-radius: 3px 0 0 3px;
+}
+
+.landing-card-name {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.landing-card-role {
+  font-size: 6.5px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-top: 3px;
+}
+
+.landing-card-rule {
+  height: 1px;
+  background: #efeae0;
+  margin: 9px 0;
+}
+
+.landing-card-bar {
+  height: 3px;
+  border-radius: 2px;
+  margin-bottom: 6px;
+  background: #eae5db;
+}
+
+.landing-card-bar.is-head {
+  width: 40%;
+  height: 4px;
+  background: #d6d0c4;
+}
+
+.landing-card-bar.is-long {
+  width: 90%;
+}
+
+.landing-card-bar.is-mid {
+  width: 84%;
+}
+
+.landing-footer {
+  padding: 56px var(--pad) 40px;
+  background: #f4f1ea;
+  border-top: 1px solid var(--line);
+}
+
+.landing-footer-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.landing-footer-brand {
+  max-width: 300px;
+}
+
+.landing-footer-logo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.landing-footer-tagline {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-muted);
+  margin: 14px 0 0;
+}
+
+.landing-footer-cols {
+  display: flex;
+  gap: 72px;
+  flex-wrap: wrap;
+}
+
+.landing-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.landing-footer-heading {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--ink-faint);
+  margin-bottom: 4px;
+}
+
+.landing-footer-link {
+  font-size: 13.5px;
+  color: var(--ink-mid);
+  cursor: pointer;
+}
+
+.landing-footer-link:hover {
+  color: var(--accent);
+}
+
+.landing-footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 44px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+}
+
+@media (max-width: 1080px) {
+  .landing-hero {
+    min-height: 0;
+  }
+
+  .landing-hero-visual {
+    display: none;
+  }
+
+  .landing-hero-copy {
+    padding-bottom: 64px;
+  }
+}
+
+@media (max-width: 860px) {
+  .landing-band {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 620px) {
+  .landing-band-cards {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .landing-footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .landing-footer-cols {
+    gap: 40px;
+  }
+}

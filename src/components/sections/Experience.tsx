@@ -46,6 +46,16 @@ function Experience() {
             />
           </label>
           <label>
+            Location
+            <input
+              type="text"
+              value={exp.location}
+              onChange={(e) =>
+                updateEntry("experience", exp.id, { location: e.target.value })
+              }
+            />
+          </label>
+          <label>
             From
             <input
               type="date"

@@ -1,0 +1,169 @@
+.auth {
+  display: flex;
+  min-height: 100vh;
+}
+
+.auth-aside {
+  position: relative;
+  flex: 1.1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 56px;
+  overflow: hidden;
+  background: var(--ink);
+  color: #f3f0e9;
+}
+
+.auth-aside-logo {
+  position: absolute;
+  top: 48px;
+  left: 56px;
+  z-index: 2;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+  color: #f3f0e9;
+}
+
+.auth-aside-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 340px;
+}
+
+.auth-aside-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #8aa0ff;
+  margin-bottom: 20px;
+}
+
+.auth-aside-title {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  margin: 0;
+}
+
+.auth-aside-sub {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #b8b3a7;
+  margin: 18px 0 28px;
+}
+
+.auth-aside-proof {
+  display: flex;
+  gap: 18px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: #a8a294;
+}
+
+.auth-aside-sep {
+  color: #57544b;
+}
+
+.auth-aside-art {
+  position: absolute;
+  right: -120px;
+  bottom: -150px;
+  z-index: 1;
+  transform: rotate(-5deg);
+  pointer-events: none;
+}
+
+.auth-sheet {
+  position: relative;
+  height: 560px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 50px 90px -34px rgba(0, 0, 0, 0.6);
+}
+
+.auth-sheet-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 794px;
+  transform-origin: top left;
+}
+
+.auth-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--paper);
+}
+
+.auth-card {
+  width: min(360px, 100%);
+  padding: 40px 36px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: 0 8px 24px -14px rgba(22, 21, 15, 0.25);
+  text-align: center;
+}
+
+.auth-wordmark {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+.auth-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 8px;
+}
+
+.auth-sub {
+  font-size: 14px;
+  color: var(--ink-muted);
+  line-height: 1.5;
+  margin: 0 0 28px;
+}
+
+.auth-legal {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  margin: 22px 0 0;
+}
+
+.auth-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+
+.auth-back:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 860px) {
+  .auth-aside {
+    display: none;
+  }
+}

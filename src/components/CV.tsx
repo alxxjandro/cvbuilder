@@ -1,4 +1,5 @@
 import { useCVStore } from "../state/cvStore";
+import type { CVData } from "../types/cv";
 import { formatDate, formatDateRange } from "../utils/formatDate";
 import "../styles/Page.css";
 
@@ -10,127 +11,171 @@ interface CVProps {
 }
 
 /**
- * Joins the present (non-empty) parts of a list with a bullet separator.
- *
- * @param parts - Candidate strings, some of which may be empty.
- * @returns The non-empty parts joined by `" • "`.
+ * Props for the CV sheet. When `data` is omitted the sheet reads the live
+ * working document from the store; pass `data` to render an arbitrary CV (for
+ * dashboard thumbnails and the landing showcase).
  */
-function joinPresent(parts: string[]): string {
-  return parts.filter(Boolean).join(" • ");
+interface CVSheetProps {
+  data?: CVData;
 }
 
 /**
- * Read-only, print-friendly rendering of the CV document read from the store.
- * Hidden when the preview is toggled off. "Download PDF" defers to the
- * browser's print dialog.
+ * Joins the present (non-empty) parts of a list with a middot separator.
+ *
+ * @param parts - Candidate strings, some of which may be empty.
+ * @returns The non-empty parts joined by `" · "`, or `""` when all are empty.
  */
-function CV({ visible }: CVProps) {
-  const data = useCVStore((state) => state.data);
+function joinPresent(parts: string[]): string {
+  return parts.filter(Boolean).join(" · ");
+}
 
-  if (!visible) return null;
+/**
+ * The CV paper sheet itself, laid out as the editorial "Currio" document and
+ * read directly from the store. Rendered standalone in the editor preview and
+ * the landing hero, and wrapped by {@link CV} for the print-friendly stage.
+ */
+export function CVSheet({ data: dataProp }: CVSheetProps = {}) {
+  const storeData = useCVStore((state) => state.data);
+  const data = dataProp ?? storeData;
 
   const { profile } = data;
-  const contactLine = joinPresent([
+  const contactLines = [
     profile.email,
-    profile.phoneNumber,
-    profile.city,
-    profile.linkedin,
-    profile.github,
-    profile.portfolio,
-  ]);
+    joinPresent([profile.phoneNumber, profile.city]),
+    joinPresent([profile.github, profile.linkedin, profile.portfolio]),
+  ].filter(Boolean);
 
   return (
-    <div className="CVcontainer">
-      <button className="download-btn" onClick={() => window.print()}>
-        Download PDF
-      </button>
-      <div className="CV">
-        <section className="cv-header">
-          <h1>
+    <article className="cv-sheet">
+      <header className="cv-masthead">
+        <div className="cv-identity">
+          <h1 className="cv-name">
             {profile.firstName} {profile.lastName}
           </h1>
-          {contactLine && <p className="cv-contact">{contactLine}</p>}
-        </section>
+          {profile.headline && (
+            <p className="cv-headline">{profile.headline}</p>
+          )}
+        </div>
+        {contactLines.length > 0 && (
+          <div className="cv-contact">
+            {contactLines.map((line, i) => (
+              <div key={i}>{line}</div>
+            ))}
+          </div>
+        )}
+      </header>
 
-        <section className="cv-section">
-          <h2>Education</h2>
-          {data.education.map((entry) => (
-            <div className="cv-entry" key={entry.id}>
-              <p>
-                <strong>
-                  {entry.schoolName} - {entry.degreeName} (
-                  {formatDateRange(entry.startDate, entry.endDate, false)})
-                </strong>
-              </p>
-              {entry.degreeCity && (
-                <p className="cv-subtext">{entry.degreeCity}</p>
-              )}
-              {entry.extraNotes && (
-                <p className="cv-subtext">{entry.extraNotes}</p>
-              )}
-            </div>
-          ))}
-        </section>
+      {profile.summary && <p className="cv-summary">{profile.summary}</p>}
 
-        <section className="cv-section">
-          <h2>Technical Skills</h2>
-          {data.skillGroups.map((group) => (
-            <div className="cv-entry" key={group.id}>
-              <p>
-                <strong>{group.groupName}:</strong>{" "}
-                {group.groupValues.join(", ")}
-              </p>
-            </div>
-          ))}
-        </section>
-
-        <section className="cv-section">
-          <h2>Experience</h2>
-          {data.experience.map((exp) => (
-            <div className="cv-entry" key={exp.id}>
-              <p>
-                <strong>
-                  {exp.jobTitle} @ {exp.companyName} -{" "}
+      <section className="cv-section">
+        <h2 className="cv-section-title">Experience</h2>
+        {data.experience.map((exp) => (
+          <div className="cv-entry" key={exp.id}>
+            <div className="cv-entry-head">
+              <div>
+                <div className="cv-entry-title">{exp.jobTitle}</div>
+                <div className="cv-entry-org">{exp.companyName}</div>
+              </div>
+              <div className="cv-entry-meta">
+                <div>
                   {formatDateRange(exp.fromDate, exp.toDate, exp.current)}
-                </strong>
-              </p>
-              <ul>
-                {exp.bullets.map((bullet, i) => (
-                  <li key={i}>{bullet}</li>
-                ))}
-              </ul>
+                </div>
+                {exp.location && <div>{exp.location}</div>}
+              </div>
             </div>
-          ))}
-        </section>
+            <ul className="cv-bullets">
+              {exp.bullets.map((bullet, i) => (
+                <li key={i}>{bullet}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </section>
 
-        <section className="cv-section">
-          <h2>Projects</h2>
-          {data.projects.map((project) => (
-            <div className="cv-entry" key={project.id}>
-              <p>
-                <strong>
-                  {project.projectName} • {formatDate(project.date)}{" "}
-                  {project.link && (
-                    <span>
-                      • <a href={project.link}>Preview</a>
-                    </span>
-                  )}
-                </strong>
-              </p>
-              <ul>
-                {project.bullets.map((bullet, i) => (
-                  <li key={i}>{bullet}</li>
-                ))}
-              </ul>
+      <section className="cv-section">
+        <h2 className="cv-section-title">Education</h2>
+        {data.education.map((entry) => (
+          <div className="cv-entry cv-entry--tight" key={entry.id}>
+            <div className="cv-entry-head">
+              <div>
+                <div className="cv-entry-title">{entry.degreeName}</div>
+                <div className="cv-entry-org">{entry.schoolName}</div>
+              </div>
+              <div className="cv-entry-meta">
+                <div>
+                  {formatDateRange(entry.startDate, entry.endDate, false)}
+                </div>
+                {entry.degreeCity && <div>{entry.degreeCity}</div>}
+              </div>
             </div>
-          ))}
-        </section>
+            {entry.extraNotes && (
+              <p className="cv-entry-note">{entry.extraNotes}</p>
+            )}
+          </div>
+        ))}
+      </section>
 
-        <section className="cv-section cv-entry">
-          <h2>Soft Skills</h2>
-          <p>{data.softSkills.map((s) => s.skill).join(", ")}</p>
-        </section>
-      </div>
+      <section className="cv-section">
+        <h2 className="cv-section-title">Technical Skills</h2>
+        {data.skillGroups.map((group) => (
+          <div className="cv-skill" key={group.id}>
+            <span className="cv-skill-label">{group.groupName}</span>
+            <span className="cv-skill-sep">:</span>
+            <span className="cv-skill-value">
+              {group.groupValues.join(", ")}
+            </span>
+          </div>
+        ))}
+      </section>
+
+      <section className="cv-section">
+        <h2 className="cv-section-title">Projects</h2>
+        {data.projects.map((project) => (
+          <div className="cv-entry cv-entry--tight" key={project.id}>
+            <div className="cv-entry-head">
+              <div className="cv-project-title">
+                {project.projectName}
+                {project.link && (
+                  <a className="cv-project-link" href={project.link}>
+                    {project.link}
+                  </a>
+                )}
+              </div>
+              <div className="cv-entry-meta">{formatDate(project.date)}</div>
+            </div>
+            <ul className="cv-bullets">
+              {project.bullets.map((bullet, i) => (
+                <li key={i}>{bullet}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </section>
+
+      <section className="cv-section">
+        <h2 className="cv-section-title">Soft Skills</h2>
+        <p className="cv-soft">
+          {joinPresent(data.softSkills.map((s) => s.skill))}
+        </p>
+      </section>
+    </article>
+  );
+}
+
+/**
+ * Print-friendly preview stage: centers the {@link CVSheet} on the warm paper
+ * background with a download action. Hidden when the preview is toggled off;
+ * "Download PDF" defers to the browser's print dialog.
+ */
+function CV({ visible }: CVProps) {
+  if (!visible) return null;
+
+  return (
+    <div className="cv-stage">
+      <button className="cv-download" onClick={() => window.print()}>
+        Download PDF
+      </button>
+      <CVSheet />
     </div>
   );
 }
