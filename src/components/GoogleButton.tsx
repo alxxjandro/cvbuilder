@@ -1,6 +1,4 @@
-import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../state/authStore";
-import { isSupabaseEnabled } from "../lib/supabase";
 
 /**
  * Props for the sign-in button.
@@ -43,27 +41,17 @@ function GoogleGlyph() {
 
 /**
  * "Continue with Google" button styled as the familiar white, bordered Google
- * sign-in control. With Supabase configured it starts the Google OAuth redirect
- * (which returns to the dashboard on its own); otherwise it signs the mocked
- * user in and routes there directly. `full` stretches it to the container
- * width.
+ * sign-in control. Starts the Google OAuth redirect, which returns to the
+ * dashboard on its own. `full` stretches it to the container width.
  */
 function GoogleButton({ full = false }: GoogleButtonProps) {
   const signIn = useAuthStore((state) => state.signIn);
-  const navigate = useNavigate();
-
-  const handleSignIn = () => {
-    signIn();
-    // In Supabase mode the OAuth redirect navigates for us; only the mock path
-    // needs to route manually.
-    if (!isSupabaseEnabled) navigate("/dashboard");
-  };
 
   return (
     <button
       type="button"
       className={`google-btn${full ? " is-full" : ""}`}
-      onClick={handleSignIn}
+      onClick={signIn}
     >
       <GoogleGlyph />
       Continue with Google

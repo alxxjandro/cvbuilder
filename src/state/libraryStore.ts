@@ -1,12 +1,9 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 import type { CVData } from "../types/cv";
 import type { Json } from "../lib/database.types";
-import { createEmptyCV, SAMPLE_LIBRARY } from "../model/cv";
-import { supabase, isSupabaseEnabled } from "../lib/supabase";
+import { createEmptyCV } from "../model/cv";
+import { supabase } from "../lib/supabase";
 import { useAuthStore } from "./authStore";
-
-const DAY = 24 * 60 * 60 * 1000;
 
 /**
  * One stored CV in the user's library: its identity, last-edit time and the
@@ -50,23 +47,6 @@ function blankDocumentForUser(): CVData {
 }
 
 /**
- * Builds the starter library from {@link SAMPLE_LIBRARY}: real, editable
- * documents with fresh ids and staggered edit times. Used only on the mocked,
- * localStorage path; real accounts start empty.
- *
- * @returns The seeded list of library CVs.
- */
-function seedLibrary(): LibraryCV[] {
-  const now = Date.now();
-  return SAMPLE_LIBRARY.map((sample, index) => ({
-    id: crypto.randomUUID(),
-    title: sample.title,
-    updatedAt: now - index * 2 * DAY,
-    data: cloneData(sample.data),
-  }));
-}
-
-/**
  * Maps a `public.cvs` row into the in-memory {@link LibraryCV} shape.
  *
  * @param row - The raw database row.
@@ -89,11 +69,11 @@ function rowToLibraryCV(row: {
 /**
  * The CV library: the collection shown on the dashboard and the source the
  * editor loads a working document from. CRUD actions update local state
- * immediately and, when Supabase is enabled, mirror the change to the backend.
+ * immediately (optimistic) and mirror each change to the `cvs` table.
  */
 export interface LibraryStore {
   cvs: LibraryCV[];
-  /** Loaded the persisted/remote library at least once. */
+  /** Whether the account's library has been loaded at least once. */
   loaded: boolean;
   /** Replaces the library with the rows owned by the signed-in user. */
   load: () => Promise<void>;
@@ -127,7 +107,7 @@ function scheduleRemoteSave(id: string, data: CVData): void {
     id,
     setTimeout(() => {
       saveTimers.delete(id);
-      void supabase!
+      void supabase
         .from("cvs")
         .update({
           data: data as unknown as Json,
@@ -142,26 +122,16 @@ function scheduleRemoteSave(id: string, data: CVData): void {
 }
 
 /**
- * The store implementation. The same actions back both paths; each action
- * branches on {@link isSupabaseEnabled} to also hit the backend.
+ * Zustand store owning every CV in the library. The backend is the source of
+ * truth: {@link LibraryStore.load} hydrates it from the signed-in account and
+ * every mutation is mirrored to the `cvs` table.
  */
-const createLibrary = (
-  set: (
-    partial:
-      | Partial<LibraryStore>
-      | ((state: LibraryStore) => Partial<LibraryStore>),
-  ) => void,
-  get: () => LibraryStore,
-): LibraryStore => ({
-  cvs: isSupabaseEnabled ? [] : seedLibrary(),
-  loaded: !isSupabaseEnabled,
+export const useLibraryStore = create<LibraryStore>()((set, get) => ({
+  cvs: [],
+  loaded: false,
 
   load: async () => {
-    if (!isSupabaseEnabled) {
-      set({ loaded: true });
-      return;
-    }
-    const { data, error } = await supabase!
+    const { data, error } = await supabase
       .from("cvs")
       .select("id, title, updated_at, data")
       .order("updated_at", { ascending: false });
@@ -173,7 +143,7 @@ const createLibrary = (
     set({ cvs: data.map(rowToLibraryCV), loaded: true });
   },
 
-  clear: () => set({ cvs: [], loaded: !isSupabaseEnabled }),
+  clear: () => set({ cvs: [], loaded: false }),
 
   create: () => {
     const id = crypto.randomUUID();
@@ -184,14 +154,12 @@ const createLibrary = (
       data: blankDocumentForUser(),
     };
     set((state) => ({ cvs: [entry, ...state.cvs] }));
-    if (isSupabaseEnabled) {
-      void supabase!
-        .from("cvs")
-        .insert({ id, title: entry.title, data: entry.data as unknown as Json })
-        .then(({ error }) => {
-          if (error) console.error("Failed to create CV", error);
-        });
-    }
+    void supabase
+      .from("cvs")
+      .insert({ id, title: entry.title, data: entry.data as unknown as Json })
+      .then(({ error }) => {
+        if (error) console.error("Failed to create CV", error);
+      });
     return id;
   },
 
@@ -207,18 +175,16 @@ const createLibrary = (
       data: cloneData(source.data),
     };
     set((state) => ({ cvs: [copy, ...state.cvs] }));
-    if (isSupabaseEnabled) {
-      void supabase!
-        .from("cvs")
-        .insert({
-          id: newId,
-          title: copy.title,
-          data: copy.data as unknown as Json,
-        })
-        .then(({ error }) => {
-          if (error) console.error("Failed to duplicate CV", error);
-        });
-    }
+    void supabase
+      .from("cvs")
+      .insert({
+        id: newId,
+        title: copy.title,
+        data: copy.data as unknown as Json,
+      })
+      .then(({ error }) => {
+        if (error) console.error("Failed to duplicate CV", error);
+      });
     return newId;
   },
 
@@ -226,28 +192,24 @@ const createLibrary = (
     set((state) => ({
       cvs: state.cvs.map((cv) => (cv.id === id ? { ...cv, title } : cv)),
     }));
-    if (isSupabaseEnabled) {
-      void supabase!
-        .from("cvs")
-        .update({ title })
-        .eq("id", id)
-        .then(({ error }) => {
-          if (error) console.error("Failed to rename CV", error);
-        });
-    }
+    void supabase
+      .from("cvs")
+      .update({ title })
+      .eq("id", id)
+      .then(({ error }) => {
+        if (error) console.error("Failed to rename CV", error);
+      });
   },
 
   remove: (id) => {
     set((state) => ({ cvs: state.cvs.filter((cv) => cv.id !== id) }));
-    if (isSupabaseEnabled) {
-      void supabase!
-        .from("cvs")
-        .delete()
-        .eq("id", id)
-        .then(({ error }) => {
-          if (error) console.error("Failed to delete CV", error);
-        });
-    }
+    void supabase
+      .from("cvs")
+      .delete()
+      .eq("id", id)
+      .then(({ error }) => {
+        if (error) console.error("Failed to delete CV", error);
+      });
   },
 
   save: (id, data) => {
@@ -256,20 +218,6 @@ const createLibrary = (
         cv.id === id ? { ...cv, data, updatedAt: Date.now() } : cv,
       ),
     }));
-    if (isSupabaseEnabled) scheduleRemoteSave(id, data);
+    scheduleRemoteSave(id, data);
   },
-});
-
-/**
- * Zustand store owning every CV in the library. With Supabase enabled the
- * backend is the source of truth and the store is hydrated by {@link
- * LibraryStore.load}; otherwise it is persisted to localStorage.
- */
-export const useLibraryStore = isSupabaseEnabled
-  ? create<LibraryStore>()(createLibrary)
-  : create<LibraryStore>()(
-      persist(createLibrary, {
-        name: "currio-library",
-        partialize: (state) => ({ cvs: state.cvs }),
-      }),
-    );
+}));

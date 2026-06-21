@@ -10,18 +10,19 @@ const key =
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ??
   import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-/**
- * Shared, schema-typed Supabase client, or `null` until the environment is
- * configured. While the backend is unconfigured the app runs entirely on
- * localStorage; once `VITE_SUPABASE_URL` and a publishable/anon key are set,
- * this resolves to a live client that the auth store and CV repository switch
- * over to.
- */
-export const supabase: SupabaseClient<Database> | null =
-  url && key ? createClient<Database>(url, key) : null;
+if (!url || !key) {
+  throw new Error(
+    "Missing Supabase environment variables. Set VITE_SUPABASE_URL and " +
+      "VITE_SUPABASE_PUBLISHABLE_KEY in .env.local for local development and " +
+      "in your Netlify site settings for production.",
+  );
+}
 
 /**
- * Whether Supabase is configured. Call sites use this to choose between the
- * mocked localStorage path and the real backend.
+ * Shared, schema-typed Supabase client. The app is backend-only: both
+ * authentication (Google OAuth) and the CV library are served by this client.
  */
-export const isSupabaseEnabled = supabase !== null;
+export const supabase: SupabaseClient<Database> = createClient<Database>(
+  url,
+  key,
+);

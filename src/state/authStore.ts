@@ -1,9 +1,8 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { supabase, isSupabaseEnabled } from "../lib/supabase";
+import { supabase } from "../lib/supabase";
 
 /**
- * The signed-in account, normalized from either the mock or a Supabase session.
+ * The signed-in account, normalized from the Supabase session.
  */
 export interface User {
   name: string;
@@ -12,28 +11,15 @@ export interface User {
 }
 
 /**
- * Hardcoded account used while authentication is mocked (Supabase not
- * configured). Mirrors the sample CV owner so the avatar and seeded documents
- * line up.
- */
-const HARDCODED_USER: User = {
-  name: "Maya Okonkwo",
-  email: "maya.okonkwo@gmail.com",
-  initials: "MO",
-};
-
-/**
- * Authentication state. With Supabase configured, {@link AuthStore.signIn}
- * starts the Google OAuth redirect and the resolved session is written back by
- * the session bootstrap (`src/lib/session.ts`). Without it, sign-in resolves
- * immediately to {@link HARDCODED_USER}.
+ * Authentication state. `signIn` starts the Google OAuth redirect; the resolved
+ * session is written back by the session bootstrap (`src/lib/session.ts`).
  */
 export interface AuthStore {
   user: User | null;
   /**
    * Whether the initial session has been resolved. Guards avoid redirecting
    * while this is false so the post-OAuth round trip does not flash the
-   * landing page. Always true in mock mode.
+   * landing page.
    */
   ready: boolean;
   signIn: () => void;
@@ -43,38 +29,22 @@ export interface AuthStore {
 }
 
 /**
- * Zustand store holding the current session. Persisted to localStorage only in
- * mock mode; with Supabase enabled the session is the source of truth and is
- * rehydrated by the auth listener, so we skip the local copy.
+ * Zustand store holding the current session. The Supabase session is the source
+ * of truth and is rehydrated by the auth listener on load, so nothing is
+ * persisted here directly.
  */
-export const useAuthStore = isSupabaseEnabled
-  ? create<AuthStore>()((set) => ({
-      user: null,
-      ready: false,
-      signIn: () => {
-        void supabase!.auth.signInWithOAuth({
-          provider: "google",
-          options: { redirectTo: `${window.location.origin}/dashboard` },
-        });
-      },
-      signOut: () => {
-        void supabase!.auth.signOut();
-        set({ user: null });
-      },
-      setUser: (user) => set({ user, ready: true }),
-    }))
-  : create<AuthStore>()(
-      persist(
-        (set) => ({
-          user: null,
-          ready: true,
-          signIn: () => set({ user: HARDCODED_USER }),
-          signOut: () => set({ user: null }),
-          setUser: (user) => set({ user, ready: true }),
-        }),
-        {
-          name: "currio-auth",
-          partialize: (state) => ({ user: state.user }),
-        },
-      ),
-    );
+export const useAuthStore = create<AuthStore>()((set) => ({
+  user: null,
+  ready: false,
+  signIn: () => {
+    void supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}/dashboard` },
+    });
+  },
+  signOut: () => {
+    void supabase.auth.signOut();
+    set({ user: null });
+  },
+  setUser: (user) => set({ user, ready: true }),
+}));
