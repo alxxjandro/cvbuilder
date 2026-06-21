@@ -1,0 +1,1 @@
+{"root":["./src/model/cv.test.ts","./src/model/cv.ts","./src/state/cvreducer.test.ts","./src/state/cvreducer.ts","./src/test/setup.ts","./src/types/cv.ts","./src/utils/formatdate.test.ts","./src/utils/formatdate.ts"],"errors":true,"version":"6.0.3"}
