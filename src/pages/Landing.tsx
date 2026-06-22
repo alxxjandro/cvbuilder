@@ -21,7 +21,7 @@ interface BandCard {
 const BAND_CARDS: BandCard[] = [
   { role: "Generalist", className: "is-left" },
   { role: "Design · UI", className: "is-mid" },
-  { role: "Backend · Go", badge: "BACKEND", className: "is-right" },
+  { role: "Backend · Go", className: "is-right" },
 ];
 
 /**
@@ -110,6 +110,13 @@ function Landing() {
               <div className="landing-card-bar is-mid" />
               <div className="landing-card-bar is-head" />
               <div className="landing-card-bar is-long" />
+              <div className="landing-card-bar is-head" />
+              <div className="landing-card-bar is-long" />
+              <div className="landing-card-bar is-mid" />
+              <div className="landing-card-bar is-head" />
+              <div className="landing-card-bar is-long" />
+              <div className="landing-card-bar is-head" />
+              <div className="landing-card-bar is-long" />
             </div>
           ))}
         </div>
@@ -139,15 +146,32 @@ function Landing() {
             </div>
             <div className="landing-footer-col">
               <div className="mono landing-footer-heading">Connect</div>
-              <span className="landing-footer-link">GitHub</span>
-              <span className="landing-footer-link">X / Twitter</span>
-              <span className="landing-footer-link">Contact</span>
+              <span className="landing-footer-link">
+                <a target="_blank" href="https://github.com/alxxjandro">
+                  GitHub
+                </a>
+              </span>
+              <span className="landing-footer-link">
+                <a target="_blank" href="https://alxxjandro.com/">
+                  Website
+                </a>
+              </span>
+              <span
+                className="landing-footer-link"
+                onClick={() => {
+                  window.location.href =
+                    "mailto:alejandro33p@icloud.com?subject=Contact";
+                }}
+                style={{ cursor: "pointer", textDecoration: "underline" }}
+              >
+                Mail
+              </span>
             </div>
           </div>
         </div>
         <div className="landing-footer-bottom">
-          <span className="mono">© 2026 Currio</span>
-          <span className="mono">Built for job-seekers</span>
+          <span className="mono">© {new Date().getFullYear()} Currio</span>
+          <span className="mono">Build by Alex</span>
         </div>
       </footer>
     </div>

@@ -86,8 +86,8 @@
 
 .landing-hero-visual {
   position: absolute;
-  top: 80px;
-  right: -60px;
+  top: 100px;
+  right: 80px;
   z-index: 1;
   pointer-events: none;
 }
@@ -121,7 +121,6 @@
 
 .landing-band-copy {
   flex: 1;
-  max-width: 520px;
 }
 
 .landing-band-eyebrow {

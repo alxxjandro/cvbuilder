@@ -60,9 +60,6 @@ function Login() {
             Sign in to your CVs and pick up where you left off.
           </p>
           <GoogleButton full />
-          <p className="mono auth-legal">
-            By continuing you agree to the Terms and Privacy Policy.
-          </p>
           <Link to="/" className="auth-back">
             <FiArrowLeft aria-hidden="true" />
             Back to home
