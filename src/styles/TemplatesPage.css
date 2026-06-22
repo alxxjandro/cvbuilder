@@ -1,0 +1,243 @@
+.tplp {
+  --pad: clamp(24px, 5vw, 64px);
+  min-height: 100vh;
+  background: var(--paper);
+}
+
+/* Hero ------------------------------------------------------------------- */
+
+.tplp-hero {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(56px, 8vw, 96px) var(--pad) clamp(20px, 4vw, 36px);
+  text-align: center;
+}
+
+.tplp-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.tplp-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5.5vw, 56px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.01;
+  margin: 0 auto;
+  max-width: 560px;
+}
+
+.tplp-sub {
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--ink-mid);
+  line-height: 1.6;
+  margin: 22px auto 0;
+  max-width: 500px;
+  text-wrap: pretty;
+}
+
+/* Template picker rail --------------------------------------------------- */
+
+.tplp-showcase {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 40px) var(--pad) clamp(48px, 7vw, 88px);
+}
+
+.tplp-rail {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: clamp(28px, 5vw, 48px);
+}
+
+.tplp-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  padding: 16px 18px;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.tplp-tab:hover {
+  transform: translateY(-2px);
+  border-color: #d8d2c6;
+}
+
+.tplp-tab.is-active {
+  background: var(--surface);
+  border-color: var(--ink);
+  box-shadow: var(--shadow-card);
+}
+
+.tplp-tab-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.tplp-tab-desc {
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ink-muted);
+  text-wrap: pretty;
+}
+
+/* Stage: big live render + info panel ------------------------------------ */
+
+.tplp-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) 0.95fr;
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+
+.tplp-frame {
+  display: flex;
+  justify-content: center;
+}
+
+.tplp-sheet {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 60px 100px -50px rgba(22, 21, 15, 0.5);
+}
+
+.tplp-sheet-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 794px;
+  transform-origin: top left;
+  animation: tplp-swap 0.42s ease both;
+}
+
+@keyframes tplp-swap {
+  from {
+    opacity: 0;
+  }
+}
+
+.tplp-info {
+  max-width: 360px;
+  animation: tplp-info-in 0.42s ease both;
+}
+
+@keyframes tplp-info-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.tplp-info-kicker {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+.tplp-info-name {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 12px 0 12px;
+}
+
+.tplp-info-desc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-mid);
+  margin: 0 0 22px;
+  text-wrap: pretty;
+}
+
+.tplp-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.tplp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.tplp-badge.is-good {
+  border-color: #bfe3cf;
+  background: #effaf3;
+  color: var(--success);
+}
+
+.tplp-info-cta {
+  text-decoration: none;
+}
+
+/* Responsive ------------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  .tplp-stage {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    justify-items: center;
+  }
+
+  .tplp-info {
+    order: -1;
+    max-width: 460px;
+    text-align: center;
+  }
+
+  .tplp-badges {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .tplp-rail {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  /* Keep the fixed-width sheet inside small viewports. */
+  .tplp-frame {
+    transform: scale(0.78);
+    transform-origin: top center;
+    margin-bottom: -120px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tplp-sheet-inner,
+  .tplp-info {
+    animation: none;
+  }
+}

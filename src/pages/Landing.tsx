@@ -1,12 +1,11 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import GoogleButton from "../components/GoogleButton";
+import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
 import { CVSheet } from "../components/CV";
 import { useAuthStore } from "../state/authStore";
 import { SAMPLE_CV } from "../model/cv";
 import "../styles/Landing.css";
-
-const SHEET_WIDTH = 794;
-const HERO_SCALE = 0.66;
 
 /**
  * A tilted, tailored CV thumbnail in the dark band. Decorative: it uses
@@ -25,22 +24,17 @@ const BAND_CARDS: BandCard[] = [
 ];
 
 /**
- * Marketing landing page for logged-out visitors. Signed-in users are sent
- * straight to their dashboard. The showcase CV is a static example that lives
- * apart from the user's own library.
+ * Marketing landing page. Open to everyone: logged-out visitors see the
+ * sign-in CTA, while signed-in visitors can still browse the public pages and
+ * jump back to their dashboard from the hero. The showcase CV is a static
+ * example that lives apart from the user's own library.
  */
 function Landing() {
   const user = useAuthStore((state) => state.user);
-  if (user) return <Navigate to="/dashboard" replace />;
 
   return (
     <div className="landing">
-      <header className="landing-nav">
-        <span className="landing-logo">Currio</span>
-        <Link to="/login" className="landing-signin">
-          Sign in
-        </Link>
-      </header>
+      <SiteHeader />
 
       <section className="landing-hero">
         <div className="landing-hero-copy">
@@ -50,7 +44,13 @@ function Landing() {
             Clean, single-column, recruiter-tested templates that sail through
             applicant tracking systems. Free, and yours.
           </p>
-          <GoogleButton />
+          {user ? (
+            <Link to="/dashboard" className="btn btn-primary landing-hero-cta">
+              Go to your dashboard
+            </Link>
+          ) : (
+            <GoogleButton />
+          )}
           <div className="mono landing-proof">
             <span>ATS-READY</span>
             <span className="landing-proof-sep">/</span>
@@ -60,17 +60,8 @@ function Landing() {
           </div>
         </div>
         <div className="landing-hero-visual" aria-hidden="true">
-          <div
-            className="landing-hero-frame"
-            style={{
-              width: SHEET_WIDTH * HERO_SCALE,
-              transform: "rotate(3deg)",
-            }}
-          >
-            <div
-              className="landing-hero-frame-inner"
-              style={{ transform: `scale(${HERO_SCALE})` }}
-            >
+          <div className="landing-hero-frame">
+            <div className="landing-hero-frame-inner">
               <CVSheet data={SAMPLE_CV} />
             </div>
           </div>
@@ -122,58 +113,7 @@ function Landing() {
         </div>
       </section>
 
-      <footer className="landing-footer">
-        <div className="landing-footer-top">
-          <div className="landing-footer-brand">
-            <span className="landing-footer-logo">Currio</span>
-            <p className="landing-footer-tagline">
-              The free, ATS-friendly CV builder. Made for people who'd rather be
-              applying than formatting.
-            </p>
-          </div>
-          <div className="landing-footer-cols">
-            <div className="landing-footer-col">
-              <div className="mono landing-footer-heading">Product</div>
-              <span className="landing-footer-link">Features</span>
-              <span className="landing-footer-link">How it works</span>
-              <span className="landing-footer-link">Templates</span>
-            </div>
-            <div className="landing-footer-col">
-              <div className="mono landing-footer-heading">Company</div>
-              <span className="landing-footer-link">About</span>
-              <span className="landing-footer-link">Privacy</span>
-              <span className="landing-footer-link">Terms</span>
-            </div>
-            <div className="landing-footer-col">
-              <div className="mono landing-footer-heading">Connect</div>
-              <span className="landing-footer-link">
-                <a target="_blank" href="https://github.com/alxxjandro">
-                  GitHub
-                </a>
-              </span>
-              <span className="landing-footer-link">
-                <a target="_blank" href="https://alxxjandro.com/">
-                  Website
-                </a>
-              </span>
-              <span
-                className="landing-footer-link"
-                onClick={() => {
-                  window.location.href =
-                    "mailto:alejandro33p@icloud.com?subject=Contact";
-                }}
-                style={{ cursor: "pointer", textDecoration: "underline" }}
-              >
-                Mail
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className="landing-footer-bottom">
-          <span className="mono">© {new Date().getFullYear()} Currio</span>
-          <span className="mono">Build by Alex</span>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

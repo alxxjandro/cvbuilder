@@ -1,0 +1,351 @@
+/* Classic reuses the editorial .cv-* rules defined in Page.css. */
+@import url("./Page.css");
+
+/* Shared A4 paper box for every template. Templates layer their own padding
+   and typography on top; .cv-sheet (Classic) already supplies its own. */
+.cv-print-sheet {
+  width: 794px;
+  min-height: 1123px;
+  margin: 0 auto;
+  background: var(--surface);
+  color: var(--ink);
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  box-shadow: 0 24px 60px -26px rgba(22, 21, 15, 0.32);
+  overflow: hidden;
+}
+
+/* Classic already carries the box via .cv-sheet; avoid a double border. */
+.cv-print-sheet.cv-sheet {
+  overflow: visible;
+}
+
+/* ============================ Modern ============================ */
+.tpl-modern {
+  padding: 56px 60px;
+  font-family: var(--font-ui);
+}
+
+.mod-masthead {
+  padding-bottom: 16px;
+  border-bottom: 3px solid var(--accent);
+}
+
+.mod-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+.mod-headline {
+  margin: 6px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.mod-contact {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+}
+
+.mod-summary {
+  margin: 18px 0 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.mod-section {
+  margin-top: 24px;
+}
+
+.mod-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.mod-section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.mod-entry {
+  margin-bottom: 14px;
+}
+
+.mod-entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.mod-entry-title {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.mod-entry-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.mod-entry-org {
+  margin-top: 1px;
+  font-size: 12.5px;
+  color: var(--ink-muted);
+}
+
+.mod-entry-note {
+  margin: 5px 0 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.mod-bullets {
+  margin: 7px 0 0;
+  padding-left: 17px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.mod-bullets li {
+  margin-bottom: 4px;
+}
+
+.mod-skill {
+  margin-bottom: 5px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.mod-skill-label {
+  font-weight: 700;
+}
+
+.mod-skill-label::after {
+  content: ":";
+  padding-right: 0.4rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.mod-skill-value {
+  color: var(--ink-soft);
+}
+
+.mod-link {
+  margin-left: 9px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.mod-soft {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* ============================ Portrait ============================ */
+.tpl-portrait {
+  font-family: var(--font-ui);
+}
+
+.por-masthead {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 40px 48px;
+  background: var(--accent-wash);
+  border-bottom: 3px solid var(--accent);
+}
+
+.por-photo {
+  flex: 0 0 auto;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--surface);
+  box-shadow: 0 6px 18px -8px rgba(42, 76, 201, 0.6);
+}
+
+.por-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.por-photo-monogram {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.por-identity {
+  min-width: 0;
+}
+
+.por-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+.por-headline {
+  margin: 5px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.por-contact {
+  margin-top: 9px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.7;
+  color: var(--ink-mid);
+}
+
+.por-body {
+  padding: 28px 48px 48px;
+}
+
+.por-summary {
+  margin: 0 0 6px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.por-section {
+  margin-top: 22px;
+}
+
+.por-section-title {
+  margin: 0 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.por-entry {
+  margin-bottom: 13px;
+}
+
+.por-entry-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.por-entry-title {
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.por-entry-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-muted);
+  white-space: nowrap;
+}
+
+.por-entry-org {
+  margin-top: 1px;
+  font-size: 12.5px;
+  color: var(--ink-muted);
+}
+
+.por-entry-note {
+  margin: 5px 0 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.por-bullets {
+  margin: 7px 0 0;
+  padding-left: 17px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.por-bullets li {
+  margin-bottom: 4px;
+}
+
+.por-skill {
+  margin-bottom: 5px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.por-skill-label {
+  font-weight: 700;
+}
+
+.por-skill-label::after {
+  content: ":";
+  padding-right: 0.4rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.por-skill-value {
+  color: var(--ink-soft);
+}
+
+.por-link {
+  margin-left: 9px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.por-soft {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}

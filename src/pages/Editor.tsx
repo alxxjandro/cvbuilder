@@ -4,7 +4,8 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { FiArrowLeft, FiChevronDown, FiMinus, FiPlus } from "react-icons/fi";
 import Avatar from "../components/Avatar";
 import Skeleton from "../components/Skeleton";
-import { CVSheet } from "../components/CV";
+import TemplateSheet from "../components/templates/TemplateSheet";
+import { TEMPLATE_LIST } from "../components/templates/registry";
 import Profile from "../components/sections/Profile";
 import Education from "../components/sections/Education";
 import TechnicalSkills from "../components/sections/TechnicalSkills";
@@ -13,7 +14,7 @@ import Projects from "../components/sections/Projects";
 import SoftSkills from "../components/sections/SoftSkills";
 import { useCVStore } from "../state/cvStore";
 import { useLibraryStore } from "../state/libraryStore";
-import type { CVData } from "../types/cv";
+import type { CVData, TemplateId } from "../types/cv";
 import "../styles/Editor.css";
 
 const SHEET_WIDTH = 794;
@@ -102,6 +103,7 @@ function Editor() {
   const cv = useLibraryStore((state) => state.cvs.find((c) => c.id === id));
   const rename = useLibraryStore((state) => state.rename);
   const data = useCVStore((state) => state.data);
+  const setTemplate = useCVStore((state) => state.setTemplate);
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [zoom, setZoom] = useState(1);
@@ -159,8 +161,15 @@ function Editor() {
     window.print();
   };
 
+  const handleDownloadDocx = () => {
+    setDownloadOpen(false);
+    // Load the docx generator on demand so it stays out of the initial bundle.
+    void import("../lib/exportDocx").then((m) => m.downloadDocx(data, cv.title));
+  };
+
   return (
-    <div className="editor">
+    <>
+      <div className="editor">
       <header className="editor-topbar">
         <Link to="/dashboard" className="editor-back">
           <FiArrowLeft aria-hidden="true" />
@@ -193,6 +202,21 @@ function Editor() {
             {saving ? "SAVING…" : "SAVED"}
           </span>
         </div>
+        <label className="editor-template">
+          <span className="mono editor-template-label">Template</span>
+          <select
+            className="editor-template-select"
+            value={data.templateId}
+            onChange={(e) => setTemplate(e.target.value as TemplateId)}
+          >
+            {TEMPLATE_LIST.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.name}
+                {t.atsSafe ? "" : " (designed)"}
+              </option>
+            ))}
+          </select>
+        </label>
         <div className="editor-download">
           <button
             type="button"
@@ -225,11 +249,11 @@ function Editor() {
                 </button>
                 <button
                   type="button"
-                  className="editor-download-item is-disabled"
-                  disabled
+                  className="editor-download-item"
+                  onClick={handleDownloadDocx}
                 >
                   Download DOCX
-                  <span className="editor-download-soon">SOON</span>
+                  <span className="editor-download-soon">ATS</span>
                 </button>
               </div>
             </>
@@ -274,7 +298,7 @@ function Editor() {
           <div className="editor-preview-scroll" ref={scrollRef}>
             {ready ? (
               <div className="editor-page" style={{ zoom: fit * zoom }}>
-                <CVSheet />
+                <TemplateSheet data={data} />
               </div>
             ) : (
               <div
@@ -306,7 +330,14 @@ function Editor() {
           </div>
         </section>
       </div>
-    </div>
+      </div>
+
+      {/* Hidden on screen; revealed by print.css so "Save as PDF" captures the
+          exact template at native A4 with real, selectable text. */}
+      <div className="print-mount" aria-hidden="true">
+        <TemplateSheet data={data} />
+      </div>
+    </>
   );
 }
 

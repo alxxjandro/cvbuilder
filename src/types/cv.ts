@@ -23,6 +23,11 @@ export interface Profile {
   linkedin: string;
   github: string;
   portfolio: string;
+  /**
+   * Optional headshot, stored inline as a base64 data URL. Only the
+   * photo-bearing template renders it; ATS exports always omit it.
+   */
+  photo?: string;
 }
 
 /**
@@ -82,9 +87,18 @@ export interface SoftSkill {
 }
 
 /**
+ * Identifies which visual template renders a document. `classic` and `modern`
+ * are single-column and ATS-safe; `portrait` is a designed, photo-bearing
+ * layout that is not optimized for ATS parsers.
+ */
+export type TemplateId = "classic" | "modern" | "portrait";
+
+/**
  * The complete CV document.
  */
 export interface CVData {
+  /** The visual template this document is rendered and exported with. */
+  templateId: TemplateId;
   profile: Profile;
   education: Education[];
   skillGroups: SkillGroup[];

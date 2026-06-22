@@ -5,6 +5,7 @@ import type {
   ListSection,
   Profile,
   SectionEntryMap,
+  TemplateId,
 } from "../types/cv";
 import { createEmptyCV, createEntry } from "../model/cv";
 
@@ -73,6 +74,10 @@ export interface CVStore {
    */
   data: CVData;
   /**
+   * Switches the document's visual template.
+   */
+  setTemplate: (templateId: TemplateId) => void;
+  /**
    * Updates one field of the profile header.
    */
   updateProfileField: (field: keyof Profile, value: string) => void;
@@ -130,6 +135,9 @@ export interface CVStore {
  */
 export const useCVStore = create<CVStore>((set) => ({
   data: createEmptyCV(),
+
+  setTemplate: (templateId) =>
+    set((state) => ({ data: { ...state.data, templateId } })),
 
   updateProfileField: (field, value) =>
     set((state) => ({

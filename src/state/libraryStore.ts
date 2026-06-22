@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import type { CVData } from "../types/cv";
+import type { CVData, TemplateId } from "../types/cv";
 import type { Json } from "../lib/database.types";
-import { createEmptyCV } from "../model/cv";
+import { createEmptyCV, withDefaults } from "../model/cv";
 import { supabase } from "../lib/supabase";
 import { useAuthStore } from "./authStore";
 
@@ -34,8 +34,9 @@ function cloneData(data: CVData): CVData {
  *
  * @returns A fresh document with the profile name prefilled when available.
  */
-function blankDocumentForUser(): CVData {
+function blankDocumentForUser(templateId: TemplateId): CVData {
   const data = createEmptyCV();
+  data.templateId = templateId;
   const user = useAuthStore.getState().user;
   if (user) {
     const [firstName, ...rest] = user.name.split(" ");
@@ -62,7 +63,7 @@ function rowToLibraryCV(row: {
     id: row.id,
     title: row.title,
     updatedAt: new Date(row.updated_at).getTime(),
-    data: row.data as unknown as CVData,
+    data: withDefaults(row.data as unknown as CVData),
   };
 }
 
@@ -79,7 +80,7 @@ export interface LibraryStore {
   load: () => Promise<void>;
   /** Empties the library (used on sign-out). */
   clear: () => void;
-  create: () => string;
+  create: (templateId?: TemplateId) => string;
   duplicate: (id: string) => string | null;
   rename: (id: string, title: string) => void;
   remove: (id: string) => void;
@@ -145,13 +146,13 @@ export const useLibraryStore = create<LibraryStore>()((set, get) => ({
 
   clear: () => set({ cvs: [], loaded: false }),
 
-  create: () => {
+  create: (templateId = "classic") => {
     const id = crypto.randomUUID();
     const entry: LibraryCV = {
       id,
       title: "Untitled CV",
       updatedAt: Date.now(),
-      data: blankDocumentForUser(),
+      data: blankDocumentForUser(templateId),
     };
     set((state) => ({ cvs: [entry, ...state.cvs] }));
     void supabase

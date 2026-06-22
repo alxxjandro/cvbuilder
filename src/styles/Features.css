@@ -1,0 +1,301 @@
+.ft {
+  --pad: clamp(24px, 5vw, 64px);
+  min-height: 100vh;
+  background: var(--paper);
+}
+
+/* Hero ------------------------------------------------------------------- */
+
+.ft-hero {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: clamp(56px, 8vw, 96px) var(--pad) clamp(24px, 4vw, 40px);
+  text-align: center;
+}
+
+.ft-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.ft-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5.5vw, 56px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.01;
+  margin: 0 auto;
+  max-width: 640px;
+  text-wrap: balance;
+}
+
+.ft-sub {
+  font-size: clamp(16px, 2vw, 19px);
+  color: var(--ink-mid);
+  line-height: 1.6;
+  margin: 22px auto 0;
+  max-width: 520px;
+  text-wrap: pretty;
+}
+
+/* Bento ------------------------------------------------------------------ */
+
+.ft-bento {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(190px, auto);
+  gap: 16px;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: clamp(16px, 3vw, 36px) var(--pad) clamp(56px, 8vw, 96px);
+}
+
+.ft-cell {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 28px;
+}
+
+.ft-cell-title {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  margin: 0 0 8px;
+}
+
+.ft-cell-body {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-mid);
+  margin: 0;
+  max-width: 30ch;
+  text-wrap: pretty;
+}
+
+.ft-cell-foot {
+  position: relative;
+  z-index: 2;
+}
+
+/* A — flagship, real CV bleeding in */
+.ft-a {
+  grid-area: 1 / 1 / 3 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 36px;
+}
+
+.ft-a-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 420px;
+}
+
+.ft-a .ft-cell-title {
+  font-size: clamp(24px, 3vw, 34px);
+}
+
+.ft-a .ft-cell-body {
+  font-size: 16px;
+  max-width: 42ch;
+}
+
+.ft-a-art {
+  position: absolute;
+  right: -40px;
+  bottom: -56px;
+  z-index: 1;
+  transform: rotate(4deg);
+  pointer-events: none;
+}
+
+.ft-mini {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 30px 60px -34px rgba(22, 21, 15, 0.5);
+}
+
+.ft-mini-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 794px;
+  transform-origin: top left;
+}
+
+/* B — three fanned templates peeking from behind the caption */
+.ft-b {
+  grid-area: 1 / 3 / 2 / 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.ft-b-art {
+  position: relative;
+  flex: 1;
+  min-height: 96px;
+}
+
+.ft-fan {
+  position: absolute;
+  top: 18px;
+  box-shadow: 0 18px 36px -22px rgba(22, 21, 15, 0.6);
+}
+
+.ft-fan-1 {
+  left: 22px;
+  transform: rotate(-8deg);
+  z-index: 1;
+}
+
+.ft-fan-2 {
+  left: 58px;
+  top: 8px;
+  transform: rotate(3deg);
+  z-index: 2;
+}
+
+.ft-fan-3 {
+  left: 96px;
+  transform: rotate(11deg);
+  z-index: 1;
+  opacity: 0.96;
+}
+
+/* The caption rides on an opaque strip so the sheets cleanly tuck behind it. */
+.ft-b .ft-cell-foot {
+  position: relative;
+  z-index: 3;
+  background: var(--surface);
+  margin: 0 -28px -28px;
+  padding: 16px 28px 28px;
+}
+
+/* C — export formats */
+.ft-c {
+  grid-area: 2 / 3 / 3 / 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ft-formats {
+  display: flex;
+  gap: 10px;
+}
+
+.ft-format {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.ft-format.is-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+/* D / E — type-forward */
+.ft-d {
+  grid-area: 3 / 1 / 4 / 2;
+}
+
+.ft-e {
+  grid-area: 3 / 2 / 4 / 3;
+}
+
+/* F — integrated dark CTA */
+.ft-f {
+  grid-area: 3 / 3 / 4 / 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #f3f0e9;
+}
+
+.ft-f-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+}
+
+.ft-f-sub {
+  font-size: 14px;
+  color: #b8b3a7;
+  margin: 0 0 18px;
+}
+
+.ft-f-btn {
+  display: inline-flex;
+}
+
+/* Responsive ------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .ft-bento {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ft-a {
+    grid-area: auto;
+    grid-column: span 2;
+    min-height: 320px;
+  }
+
+  .ft-b,
+  .ft-c,
+  .ft-d,
+  .ft-e,
+  .ft-f {
+    grid-area: auto;
+  }
+
+  .ft-b {
+    min-height: 240px;
+  }
+}
+
+@media (max-width: 580px) {
+  .ft-bento {
+    grid-template-columns: 1fr;
+  }
+
+  .ft-a,
+  .ft-b,
+  .ft-c,
+  .ft-d,
+  .ft-e,
+  .ft-f {
+    grid-column: auto;
+  }
+
+  .ft-a-art {
+    right: -60px;
+    bottom: -80px;
+    opacity: 0.5;
+  }
+}

@@ -280,7 +280,10 @@
   flex: 1;
   overflow: auto;
   display: flex;
-  justify-content: center;
+  /* `safe center` keeps the sheet centered, but falls back to start-aligned
+     when it is wider than the pane (e.g. zoomed in) so the left edge and its
+     content never get clipped out of reach. */
+  justify-content: safe center;
   align-items: flex-start;
   padding: 34px 20px 88px;
 }
@@ -611,6 +614,7 @@
     border-right: none;
     border-bottom: 1px solid var(--line);
     padding: 0;
+    justify-content: space-around;
   }
 
   .editor-rail-item {
@@ -637,18 +641,110 @@
   }
 }
 
+/* Template switcher in the topbar */
+.editor-template {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.editor-template-label {
+  font-size: 9px;
+  color: var(--ink-faint);
+}
+
+.editor-template-select {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-input);
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.editor-template-select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-wash);
+}
+
+/* Photo uploader (Portrait template only) */
+.photo-field-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 7px;
+}
+
+.photo-field-preview {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--surface);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.photo-field-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-field-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.photo-field-actions .btn {
+  padding: 8px 14px;
+  font-size: 13px;
+}
+
+.photo-field-error {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--danger);
+}
+
 @media (max-width: 560px) {
   .editor-topbar {
-    gap: 10px;
+    gap: 1rem;
     padding: 0 12px;
+    display: flex;
+    justify-content: space-around;
   }
 
   .editor-save {
     display: none;
   }
 
+  .editor-template {
+    display: none;
+  }
+
   .editor-form .names,
   .editor-form .contactInfo {
     grid-template-columns: 1fr;
+  }
+
+  .editor-form-pane {
+    padding: 22px 18px;
+  }
+
+  .editor-section-title {
+    font-size: 23px;
+  }
+
+  .editor-preview-scroll {
+    padding: 18px 10px 80px;
   }
 }

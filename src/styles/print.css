@@ -1,0 +1,76 @@
+/*
+ * Print pipeline for picture-perfect, ATS-safe PDF export.
+ *
+ * The editor renders a hidden `.print-mount` that holds the active template at
+ * native size. On screen it is hidden; when printing we hide the editor chrome
+ * and reveal only the mount, so the browser's "Save as PDF" produces the exact
+ * template sheet with real, selectable text.
+ */
+
+.print-mount {
+  display: none;
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  /* Hide every app surface; only the print mount should reach paper. */
+  .editor,
+  .dashboard,
+  .landing,
+  .auth-screen,
+  .cv-stage {
+    display: none !important;
+  }
+
+  .print-mount {
+    display: block !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+  }
+
+  .cv-print-sheet {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    /* Preserve template background colours (e.g. the Portrait band). */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .cv-print-sheet.cv-sheet {
+    padding: 14mm 15mm !important;
+  }
+
+  .tpl-modern {
+    padding: 14mm 16mm !important;
+  }
+
+  .tpl-portrait .por-masthead {
+    padding: 12mm 14mm !important;
+  }
+
+  .tpl-portrait .por-body {
+    padding: 8mm 14mm 14mm !important;
+  }
+
+  /* Keep entries and sections from splitting awkwardly across pages. */
+  .cv-section,
+  .mod-section,
+  .por-section,
+  .cv-entry,
+  .mod-entry,
+  .por-entry {
+    page-break-inside: avoid;
+  }
+}

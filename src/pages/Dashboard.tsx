@@ -4,9 +4,11 @@ import { FiPlus, FiMoreHorizontal } from "react-icons/fi";
 import Brand from "../components/Brand";
 import Avatar from "../components/Avatar";
 import Skeleton from "../components/Skeleton";
-import { CVSheet } from "../components/CV";
+import TemplateSheet from "../components/templates/TemplateSheet";
+import NewCVDialog from "../components/NewCVDialog";
 import { useLibraryStore } from "../state/libraryStore";
 import type { LibraryCV } from "../state/libraryStore";
+import type { TemplateId } from "../types/cv";
 import { useHydrated } from "../hooks/useHydrated";
 import { formatEdited } from "../utils/relativeTime";
 import "../styles/Dashboard.css";
@@ -47,7 +49,7 @@ function SheetThumb({ cv, scale }: { cv: LibraryCV; scale: number }) {
         className="sheet-thumb-inner"
         style={{ transform: `scale(${scale})` }}
       >
-        <CVSheet data={cv.data} />
+        <TemplateSheet data={cv.data} />
       </div>
     </div>
   );
@@ -79,6 +81,7 @@ function Dashboard() {
   const hydrated = useHydrated();
   const [view, setView] = useState<View>("grid");
   const [openMenu, setOpenMenu] = useState<string | null>(null);
+  const [picking, setPicking] = useState(false);
 
   const ordered = useMemo(
     () => [...cvs].sort((a, b) => b.updatedAt - a.updatedAt),
@@ -86,7 +89,12 @@ function Dashboard() {
   );
   const featured = ordered[0];
 
-  const handleNew = () => navigate(`/cv/${create()}`);
+  const handleNew = () => setPicking(true);
+
+  const handlePick = (templateId: TemplateId) => {
+    setPicking(false);
+    navigate(`/cv/${create(templateId)}`);
+  };
 
   const handleDuplicate = (id: string) => {
     const newId = duplicate(id);
@@ -102,7 +110,7 @@ function Dashboard() {
   return (
     <div className="dashboard">
       <header className="dashboard-topbar">
-        <Brand to="/dashboard" />
+        <Brand to="/" />
         <Avatar />
       </header>
 
@@ -291,6 +299,10 @@ function Dashboard() {
           </>
         )}
       </main>
+
+      {picking && (
+        <NewCVDialog onPick={handlePick} onClose={() => setPicking(false)} />
+      )}
     </div>
   );
 }

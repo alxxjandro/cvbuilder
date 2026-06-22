@@ -8,7 +8,14 @@ import type {
   SectionEntryMap,
   SkillGroup,
   SoftSkill,
+  TemplateId,
 } from "../types/cv";
+
+/**
+ * The template a document falls back to when none is recorded (for example a
+ * row created before templates existed).
+ */
+export const DEFAULT_TEMPLATE: TemplateId = "classic";
 
 /**
  * Generates a stable, unique identifier for a list entry.
@@ -135,6 +142,7 @@ export function createEntry<S extends ListSection>(
  */
 export function createEmptyCV(): CVData {
   return {
+    templateId: DEFAULT_TEMPLATE,
     profile: createEmptyProfile(),
     education: [],
     skillGroups: [],
@@ -145,10 +153,27 @@ export function createEmptyCV(): CVData {
 }
 
 /**
+ * Normalizes a loaded document, backfilling any fields absent from older
+ * persisted rows so the rest of the app can assume a complete {@link CVData}.
+ * In particular, rows saved before templates existed gain the default
+ * template.
+ *
+ * @param data - A document loaded from storage, possibly missing newer fields.
+ * @returns A complete {@link CVData} safe to render and edit.
+ */
+export function withDefaults(data: CVData): CVData {
+  return {
+    ...data,
+    templateId: data.templateId ?? DEFAULT_TEMPLATE,
+  };
+}
+
+/**
  * Demo CV used as seed data for local development and tests. Uses realistic
  * sample content so the live preview matches the editorial design mockup.
  */
 export const SAMPLE_CV: CVData = {
+  templateId: "classic",
   profile: {
     firstName: "Maya",
     lastName: "Okonkwo",
@@ -254,6 +279,7 @@ export const SAMPLE_CV: CVData = {
  * idea.
  */
 export const SAMPLE_FRONTEND: CVData = {
+  templateId: "modern",
   profile: {
     firstName: "Maya",
     lastName: "Okonkwo",
@@ -359,6 +385,7 @@ export const SAMPLE_FRONTEND: CVData = {
  * across product, frontend and backend.
  */
 export const SAMPLE_FULLSTACK: CVData = {
+  templateId: "classic",
   profile: {
     firstName: "Maya",
     lastName: "Okonkwo",

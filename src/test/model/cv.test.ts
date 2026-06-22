@@ -1,5 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { createEmptyCV, createEntry, SAMPLE_CV } from "../../model/cv";
+import type { CVData } from "../../types/cv";
+import {
+  createEmptyCV,
+  createEntry,
+  SAMPLE_CV,
+  withDefaults,
+} from "../../model/cv";
 
 describe("createEmptyCV", () => {
   it("starts with empty profile fields", () => {
@@ -25,6 +31,25 @@ describe("createEmptyCV", () => {
     const b = createEmptyCV();
     a.profile.firstName = "Mutated";
     expect(b.profile.firstName).toBe("");
+  });
+});
+
+describe("createEmptyCV templateId", () => {
+  it("defaults a fresh document to the classic template", () => {
+    expect(createEmptyCV().templateId).toBe("classic");
+  });
+});
+
+describe("withDefaults", () => {
+  it("backfills a missing templateId on legacy rows", () => {
+    const legacy = { ...createEmptyCV() } as Partial<CVData>;
+    delete legacy.templateId;
+    expect(withDefaults(legacy as CVData).templateId).toBe("classic");
+  });
+
+  it("keeps an explicit templateId", () => {
+    const doc: CVData = { ...createEmptyCV(), templateId: "portrait" };
+    expect(withDefaults(doc).templateId).toBe("portrait");
   });
 });
 
